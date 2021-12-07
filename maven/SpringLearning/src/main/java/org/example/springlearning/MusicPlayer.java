@@ -1,11 +1,19 @@
 package org.example.springlearning;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 @Component
 public class MusicPlayer {
-    private Music music;
+    @Autowired
+    @Qualifier("rockMusic")
+    private Music music1;
+    @Autowired
+    @Qualifier("classicalMusic")
+    private Music music2;
     private int volume;
     private String name;
 
@@ -19,21 +27,19 @@ public class MusicPlayer {
 
     public MusicPlayer() {
     }
-    @Autowired
-    public MusicPlayer(Music music) {
-        this.music = music;
+
+    public MusicPlayer(Music music1, Music music2) {
+        this.music1 = music1;
+        this.music2 = music2;
     }
 
-    public void playMusic() {
-        System.out.println("Playing: " + music.getSong());
-    }
-
-    public void setMusic(Music music) {
-        this.music = music;
-    }
-
-    public Music getMusic() {
-        return music;
+    public String playMusic(Genres genre) {
+        if (genre.equals(Genres.ROCKMUSIC)) {
+            return "Playing: " + music1.getSong().get(new Random().nextInt(3));
+        }
+        else {
+            return "Playing: " + music2.getSong().get(new Random().nextInt(3));
+        }
     }
 
     public int getVolume() {
