@@ -3,9 +3,8 @@ package org.example.springlearning;
 import java.util.Arrays;
 import java.util.List;
 
-
-public class RockMusic implements Music{
-    List<String> songs = Arrays.asList(new String[] {"Unforgiven I", "Unforgiven II", "Unforgiven III"});
+public class PopMusic implements Music{
+    List<String> songs = Arrays.asList(new String[] {"My Heart Will Go ON", "Always Love You", "Prayer"});
 
     public List<String> getSong() {
         return songs;
