@@ -1,12 +1,10 @@
 package ua.com.rostylka;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import ua.com.rostylka.dao.FlowCounterDao;
 import ua.com.rostylka.models.FlowCounter;
+
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -15,19 +13,14 @@ public class App {
         counter.setType("KURS-01");
         counter.setqMin(0.65);
         counter.setqMax(160);
+        counter.setId(17);
 
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(FlowCounter.class);
+        FlowCounterDao flowCounterDao = FlowCounterDao.getInstance();
+        List<FlowCounter> flowCounters = flowCounterDao.readAll();
+        for (FlowCounter flowcounter: flowCounters) {
+            System.out.println(flowcounter);
+        }
 
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        SessionFactory sf = configuration.buildSessionFactory();
-
-        Session session = sf.openSession();
-        Transaction transaction = session.beginTransaction();
-        //session.delete();
-        transaction.commit();
-        session.close();
 
     }
 }
