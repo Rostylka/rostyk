@@ -15,11 +15,11 @@ public class App {
         counter.setqMax(160);
         counter.setId(17);
 
-        FlowCounterDao flowCounterDao = FlowCounterDao.getInstance();
+        /*FlowCounterDao flowCounterDao = FlowCounterDao.getInstance();
         List<FlowCounter> flowCounters = flowCounterDao.readAll();
         for (FlowCounter flowcounter: flowCounters) {
             System.out.println(flowcounter);
-        }
+        }*/
 
 
     }

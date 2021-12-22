@@ -5,10 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Component;
 import ua.com.rostylka.models.FlowCounter;
 
 import java.util.LinkedList;
 import java.util.List;
+
+@Component
 public class FlowCounterDao {
 
     private List <FlowCounter> flowCounters = new LinkedList<>();
@@ -28,13 +31,6 @@ public class FlowCounterDao {
 
     private FlowCounterDao() {
 
-    }
-
-    public static FlowCounterDao getInstance() {
-        if (flowCounterDaoInstance == null) {
-            flowCounterDaoInstance = new FlowCounterDao();
-            return flowCounterDaoInstance;
-        } else return flowCounterDaoInstance;
     }
 
     public void create(FlowCounter flowCounter) {
