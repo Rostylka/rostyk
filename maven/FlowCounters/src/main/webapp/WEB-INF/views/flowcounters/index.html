@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>    
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <title>ListOfFlowcounters</title>
+</head>
+<h2>
+    List of Gas Flow Meters
+</h2>
+<body>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>FlowCounterType</td>
+        <td>FlowCounterMode</td>
+        <td>Qmin</td>
+        <td>Qmax</td>
+        <td colspan="3">Operations</td>
+        <td>            
+            <form class="btn btn-success" action="/flowcounters/new">
+                <button>Add</button>
+            </form>
+        </td>
+        <td>            
+            <form class="btn btn-success" action="/">
+                <button>home</button>
+            </form>
+        </td>
+    </tr>       
+    <tr th:each="flowcounter : ${flowcounters}">
+        <td>
+        	<a th:text="${flowcounter.getId()}">ID</a> 
+        </td>
+        <td>
+        	<a th:text="${flowcounter.getType()}">Type</a> 
+        </td>
+        <td>
+        	<a th:text="${flowcounter.getMode()}">Mode</a>
+        </td>
+        <td>        
+        	<a th:text="${flowcounter.getqMin()}">qMin</a>
+        </td>
+        <td>
+        	<a th:text="${flowcounter.getqMax()}">qMax</a>
+        </td>
+        <td>
+            <a th:href="/flowcounters/update?id=<%= flowCounter.getId()%>">Update</a>
+        </td>
+        <td>
+            <a th:href="/flowcounters/delete?id=<%= flowCounter.getId()%>">Delete</a>
+        </td>
+        <td>
+            <a th:href="/flowcounters/calc?id=<%= flowCounter.getId()%>">Calc</a>
+        </td>
+    </tr>
+</table>       
+</body>
+</html>

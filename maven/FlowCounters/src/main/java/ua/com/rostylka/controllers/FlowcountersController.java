@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.rostylka.dao.FlowCounterDao;
@@ -15,6 +16,18 @@ import ua.com.rostylka.models.FlowCounter;
 public class FlowcountersController {
     @Autowired
     FlowCounterDao flowCounterDao;
+    
+    @GetMapping()
+    public String index(Model model) {
+        model.addAttribute("flowcounters", flowCounterDao.readAll());
+        return "flowcounters/index";
+    }
+    
+    @GetMapping("/{id}")
+    public String calc(@PathVariable("id") int id, Model model) {
+        model.addAttribute("flowcounter", flowCounterDao.readByID(id));
+        return "flowcounters/calc";
+    }
 
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("flowcounter") FlowCounter flowcounter){

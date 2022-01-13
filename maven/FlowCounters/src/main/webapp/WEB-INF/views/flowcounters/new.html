@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
     <title>Create FlowСounter</title>
 </head>
 <h2>
@@ -15,7 +15,7 @@
                 <label for="type"> FlowCounterType: </label>
             </td>
             <td>
-                <input type="text" th:field="*type" id="type">
+                <input type="text" th:field="*{type}" id="type"/>
             </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
                 <label for="mode"> FlowCounterMode: </label>
             </td>
             <td>
-                <input type="text" th:field="*mode" id="mode">
+                <input type="text" th:field="*{mode}" id="mode"/>
             </td>
         </tr>
         <tr>
@@ -31,7 +31,7 @@
                 <label for="qMin"> Qmin, m3/h: </label>
             </td>
             <td>
-                <input type="text" th:field="*qMin" id="qMin">
+                <input type="text" th:field="*{qMin}" id="qMin"/>
             </td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <label for="qMax"> Qmax, m3/h: </label>
             </td>
             <td>
-                <input type="text" th:field="*qMax" id="qMax">
+                <input type="text" th:field="*{qMax}" id="qMax"/>
             </td>
         </tr>
         <tr>
@@ -53,8 +53,8 @@
         </tr>
     </table>
 </form>
-<form action="/">
-    <button>ListOfFlowСounters</button>
+<form action="/flowcounters">
+    <button>ListOfFlowCounters</button>
 </form>
 </body>
 </html>
