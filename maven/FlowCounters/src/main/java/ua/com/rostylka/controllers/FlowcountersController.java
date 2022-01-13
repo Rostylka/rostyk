@@ -17,27 +17,27 @@ public class FlowcountersController {
     @Autowired
     FlowCounterDao flowCounterDao;
     
-    @GetMapping()
+    @GetMapping("/list")
     public String index(Model model) {
         model.addAttribute("flowcounters", flowCounterDao.readAll());
-        return "flowcounters/index";
+        return "/flowcounters/list";
     }
     
     @GetMapping("/{id}")
     public String calc(@PathVariable("id") int id, Model model) {
         model.addAttribute("flowcounter", flowCounterDao.readByID(id));
-        return "flowcounters/calc";
+        return "/flowcounters/calc";
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("flowcounter") FlowCounter flowcounter){
-        return "flowcounters/new";
+    public String newFlowCounter(@ModelAttribute("flowcounter") FlowCounter flowcounter){
+        return "/flowcounters/new";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("flowcounter") FlowCounter flowcounter){
         flowCounterDao.create(flowcounter);
-        return "redirect: /flowcounters";
-    }
+        return "redirect: /flowcounters/list";
+    }        
 
 }
