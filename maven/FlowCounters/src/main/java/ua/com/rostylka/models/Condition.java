@@ -1,5 +1,8 @@
 package ua.com.rostylka.models;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Condition {
     public double getqMinSt() {
         return qMinSt;
@@ -23,6 +26,8 @@ public class Condition {
     private double tMax;
     private double qMinSt;
     private double qMaxSt;
+
+    public Condition() {}
 
     public Condition(double pMin, double pMax, double tMin, double tMax) {
         setpMin(pMin);

@@ -40,7 +40,7 @@
             <a th:href="@{/flowcounters/delete}">Delete</a>
         </td>
         <td>
-            <a th:href="@{/flowcounters/calc}">Calc</a>
+            <a th:href="@{/flowcounters/{id} (id = ${flowcounter.getId()})}">Calc</a>
         </td>
     </tr>
 </table>     

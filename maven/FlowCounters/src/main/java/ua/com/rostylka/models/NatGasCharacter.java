@@ -1,9 +1,13 @@
 package ua.com.rostylka.models;
 
+import org.springframework.stereotype.Component;
+@Component
 public class NatGasCharacter {
     private double roStCondidion;
     private double xA;
     private double xY;
+
+    public NatGasCharacter(){}
 
     public NatGasCharacter(double roSt, double xA, double xY) {
         setRoStCondidion(roSt);

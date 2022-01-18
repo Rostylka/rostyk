@@ -9,13 +9,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.rostylka.dao.FlowCounterDao;
+import ua.com.rostylka.models.Condition;
 import ua.com.rostylka.models.FlowCounter;
+import ua.com.rostylka.models.NatGasCharacter;
 
 @Controller
 @RequestMapping("/flowcounters")
 public class FlowcountersController {
     @Autowired
     FlowCounterDao flowCounterDao;
+    @Autowired
+    Condition condition;
+    @Autowired
+    NatGasCharacter natGasCharacter;
+
     
     @GetMapping()
     public String index(Model model) {
@@ -34,10 +41,13 @@ public class FlowcountersController {
         return "flowcounters/new";
     }
 
-    @PostMapping()
-    public String create(@ModelAttribute("flowcounter") FlowCounter flowcounter){
+    @PostMapping("/{id}")
+    public String calculate(@PathVariable("id") int id, @ModelAttribute("flowcounter") FlowCounter flowcounter,
+                            @ModelAttribute("condition") Condition condition,
+                            @ModelAttribute("ngchar") NatGasCharacter natGasCharacter){
         flowCounterDao.create(flowcounter);
-        return "redirect: flowcounters/list";
-    }        
+        return "redirect: flowcounters/calcresult";
+    }
+
 
 }
