@@ -20,7 +20,7 @@ public class Author {
     private String surname;
 
     @ManyToMany()
-    @JoinTable(name = "books",
+    @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "id_author"),
             inverseJoinColumns = @JoinColumn(name = "id_book"))
     private List<Book> books;

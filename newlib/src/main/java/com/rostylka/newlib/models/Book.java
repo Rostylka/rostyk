@@ -17,13 +17,13 @@ public class Book {
     private String title;
 
     @ManyToMany()
-    @JoinTable(name = "authors",
+    @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "id_book"),
             inverseJoinColumns = @JoinColumn(name = "id_author"))
     private List<Author> authors;
 
     @ManyToMany()
-    @JoinTable(name = "users",
+    @JoinTable(name = "users_books",
             joinColumns = @JoinColumn(name = "id_book"),
             inverseJoinColumns = @JoinColumn(name = "id_user"))
     private List<User> users;
