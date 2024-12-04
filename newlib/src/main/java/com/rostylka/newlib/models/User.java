@@ -1,13 +1,18 @@
 package com.rostylka.newlib.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
-
 public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -42,8 +47,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_book"))
     private List<Book> books;
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", birthday=" + birthday +
+                ", role=" + role +
+                ", books=" + books +
+                '}';
+    }
 }
 
 
