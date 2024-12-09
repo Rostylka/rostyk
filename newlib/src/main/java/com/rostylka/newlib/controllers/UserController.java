@@ -18,22 +18,37 @@ public class UserController {
 
     private UserServiceImplementation userServiceImplementation;
 
-    @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("users",
-                userServiceImplementation.readAllUsers());
-        return "users/list";
+    /** GET form
+     * CREATE User
+     * @param user
+     * @return list Users
+     */
+    @GetMapping("/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "users/new";
     }
 
+    /** POST User
+     * CREATE User
+     * @param user
+     * @return list Users
+     */
     @PostMapping("/create")
     public String createUser(@ModelAttribute("user") User user) {
         userServiceImplementation.createUser(UserMapper.mapToUserDto(user));
         return "redirect:/users";
     }
 
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
-        return "users/new";
+    /**
+     * READ ALL Users
+     * @param model
+     * @return list of Users
+     */
+    @GetMapping("")
+    public String index(Model model) {
+        model.addAttribute("users",
+                userServiceImplementation.readAllUsers());
+        return "users/list";
     }
 
     @Autowired
