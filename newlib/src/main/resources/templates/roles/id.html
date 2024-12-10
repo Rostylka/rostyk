@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <title>Role</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<h2>
+    View Role
+</h2>
+<body>
+<form>
+    <table>
+        <tr>
+            <td><label for="type"> Name: </label></td>
+            <td><input type="text" th:value="${role.getRoleName()}" id="type" disabled/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+
+            </td>
+
+        </tr>
+    </table>
+</form>
+<form th:object=${role} th:method="GET" th:action="@{/roles/update/{id} (id = ${role.getId()})}">
+    <button>Update</button>
+</form>
+<form th:object=${role} th:method="POST" th:action="@{/roles/delete/{id} (id = ${role.getId()})}">
+    <button>Delete</button>
+</form>
+
+<form action="/roles">
+    <button>All Roles</button>
+</form>
+</body>
+</html>

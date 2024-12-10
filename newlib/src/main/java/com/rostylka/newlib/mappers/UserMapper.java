@@ -3,6 +3,9 @@ package com.rostylka.newlib.mappers;
 import com.rostylka.newlib.dto.UserDto;
 import com.rostylka.newlib.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for transforming User into UserDTO and  vice versa
  */
@@ -40,5 +43,18 @@ public class UserMapper {
                 userDto.getBirthday(),
                 userDto.getRole(),
                 userDto.getBooks());
+    }
+
+    /**
+     * Method for transforming User list into User DTO list
+     * @param users list of Users
+     * @return list of Users DTO
+     */
+    public static List<UserDto> mapToUserDtoList(List<User> users) {
+        List<UserDto> dtoUsers = new ArrayList<>();
+        for (User user : users) {
+            dtoUsers.add(UserMapper.mapToUserDto(user));
+        }
+        return dtoUsers;
     }
 }

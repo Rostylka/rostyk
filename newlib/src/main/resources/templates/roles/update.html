@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
-    <title>new Role</title>
+    <title>Update Role</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
 <h2>
-    Create Role
+    Update Role
 </h2>
 <body>
-<form th:method="POST" th:action="@{/roles/create}" th:object=${role}>
+<form th:method="POST" th:action="@{/roles/update/{id} (id = ${role.getId()})}" th:object=${role}>
     <table>
         <tr>
             <td><label for="type"> Name: </label></td>
-            <td><input type="text" th:field="*{roleName}" id="type"/></td>
+            <td><input type="text" th:field="*{roleName}" th:value="${role.getRoleName()}" id="type"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Create"></td>
+            <td><input type="submit" value="Update"></td>
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>

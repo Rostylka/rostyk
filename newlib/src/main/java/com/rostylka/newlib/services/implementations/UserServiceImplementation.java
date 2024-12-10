@@ -7,7 +7,6 @@ import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,12 +41,8 @@ public class UserServiceImplementation implements UserService {
      */
     @Override
     public List<UserDto> readAllUsers() {
-        List<User> users = userRepository.findAll();
-        List<UserDto> dtoUsers = new ArrayList<>();
-        for (User user : users) {
-            dtoUsers.add(UserMapper.mapToUserDto(user));
-        }
-        return dtoUsers;
+        return UserMapper.mapToUserDtoList(userRepository.findAll());
     }
+
 
 }

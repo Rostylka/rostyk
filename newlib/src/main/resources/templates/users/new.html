@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
     <title>new User</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
 <h2>
     Create User
@@ -35,6 +36,15 @@
             <td><label for="mode"> birthday: </label></td>
             <td><input type="date" th:field="*{birthday}" id="mode"/></td>
         </tr>
+            <td><label for="mode"> role: </label></td>
+            <td>
+                <select th:field="*{role}" id="options">
+                    <option th:each="role: ${roles}"
+                            th:value ="${role.getId()}"
+                            th:text ="${role.getRoleName()}">                                >
+                    </option>
+                </select>
+            </td>
         <tr>
             <td><input type="submit" value="Create"></td>
             <td><input type="reset" value="Clear"></td>

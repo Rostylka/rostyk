@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
     <title>Users</title>
+    <link rel="stylesheet" href="/styles/liststyles.css">
 </head>
 <h2>
     List of Users
@@ -18,11 +19,11 @@
         <th>password</th>
         <th>birthday</th>
         <th>role</th>
-        <td>
+        <th>
             <form class="btn btn-success" action="/home">
                 <button>home</button>
             </form>
-        </td>
+        </th>
     </tr>
     <tr th:each="user : ${users}">
         <td th:text="${user.getId()}">ID</td>

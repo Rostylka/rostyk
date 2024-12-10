@@ -42,12 +42,38 @@ public class RoleServiceImplementation implements RoleService {
      */
     @Override
     public List<RoleDto> readAllRoles() {
-        List<Role> roles = roleRepository.findAll();
-        List<RoleDto> dtoRoles = new ArrayList<>();
-        for (Role role : roles) {
-            dtoRoles.add(RoleMapper.mapToRoleDto(role));
-        }
-        return dtoRoles;
+        return RoleMapper.mapToRoleDtoList(roleRepository.findAll());
     }
 
+
+    /**
+     * Method for reading Role by ID from DataBase
+     * @param id ID of Role
+     * @return Role by ID
+     */
+    @Override
+    public RoleDto readRoleById(int id) {
+        return RoleMapper.mapToRoleDto(roleRepository.getReferenceById(id));
+    }
+
+    /**
+     * Method for Updating Role in DataBase
+     * @param roleDto
+     * update Role in DataBase
+     */
+    @Override
+    public RoleDto updateRole(RoleDto roleDto) {
+        Role updatedRole = roleRepository.getReferenceById(roleDto.getId());
+        updatedRole.setRoleName(roleDto.getRoleName());
+        return RoleMapper.mapToRoleDto(roleRepository.save(updatedRole));
+    }
+
+    /**
+     * Method for Deleting Role from DataBase
+     * @param roleDto
+     */
+    @Override
+    public void delete(RoleDto roleDto) {
+        roleRepository.delete(RoleMapper.mapToRole(roleDto));
+    }
 }
