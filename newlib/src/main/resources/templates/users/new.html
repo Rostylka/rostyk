@@ -12,33 +12,33 @@
 <form th:method="POST" th:action="@{/users/create}" th:object=${user}>
     <table>
         <tr>
-            <td><label for="type"> Name: </label></td>
-            <td><input type="text" th:field="*{name}" id="type"/></td>
+            <td><label for="name"> Name: </label></td>
+            <td><input type="text" th:field="*{name}" id="name"/></td>
         </tr>
         <tr>
-            <td><label for="mode"> Surname: </label></td>
-            <td><input type="text" th:field="*{surname}" id="mode"/>
+            <td><label for="surname"> Surname: </label></td>
+            <td><input type="text" th:field="*{surname}" id="surname"/>
             </td>
         </tr>
         <tr>
-            <td><label for="mode"> e-mail: </label></td>
-            <td><input type="email" th:field="*{email}" id="mode"/></td>
+            <td><label for="email"> e-mail: </label></td>
+            <td><input type="email" th:field="*{email}" id="email"/></td>
         </tr>
         <tr>
-            <td><label for="mode"> login: </label></td>
-            <td><input type="text" th:field="*{login}" id="mode"/></td>
+            <td><label for="login"> login: </label></td>
+            <td><input type="text" th:field="*{login}" id="login"/></td>
         </tr>
         <tr>
-            <td><label for="mode"> password: </label></td>
-            <td><input type="password" th:field="*{password}" id="mode"/></td>
+            <td><label for="password"> password: </label></td>
+            <td><input type="password" th:field="*{password}" id="password"/></td>
         </tr>
         <tr>
-            <td><label for="mode"> birthday: </label></td>
-            <td><input type="date" th:field="*{birthday}" id="mode"/></td>
+            <td><label for="birthday"> birthday: </label></td>
+            <td><input type="date" th:field="*{birthday}" id="birthday"/></td>
         </tr>
-            <td><label for="mode"> role: </label></td>
+            <td><label for="role"> role: </label></td>
             <td>
-                <select th:field="*{role}" id="options">
+                <select th:field="*{role}" id="role">
                     <option th:each="role: ${roles}"
                             th:value ="${role.getId()}"
                             th:text ="${role.getRoleName()}">                                >

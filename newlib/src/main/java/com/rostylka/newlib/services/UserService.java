@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
     /**
      * Method for creation User in DataBase
-     * @param userDto
+     * @param userDto - User DTO
      * @return User() create new User in DataBase
      */
     UserDto createUser(UserDto userDto);
@@ -20,4 +20,24 @@ public interface UserService {
      * @return List of UserDTO from DataBase
      */
     List<UserDto> readAllUsers();
+
+    /**
+     * Method for reading User by ID from DataBase
+     * @param id ID of User
+     * @return User by ID
+     */
+    UserDto readUserById(int id);
+
+    /**
+     * Method for Updating User in DataBase
+     * @param userDto - User DTO
+     * @return updated User
+     */
+    UserDto updateUser(UserDto userDto);
+
+    /**
+     * Method for Deleting User from DataBase
+     * @param userDto - User DTO
+     */
+    void delete(UserDto userDto);
 }

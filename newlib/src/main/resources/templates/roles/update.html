@@ -12,8 +12,8 @@
 <form th:method="POST" th:action="@{/roles/update/{id} (id = ${role.getId()})}" th:object=${role}>
     <table>
         <tr>
-            <td><label for="type"> Name: </label></td>
-            <td><input type="text" th:field="*{roleName}" th:value="${role.getRoleName()}" id="type"/></td>
+            <td><label for="name"> Name: </label></td>
+            <td><input type="text" th:field="*{roleName}" th:value="${role.getRoleName()}" id="name"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Update"></td>

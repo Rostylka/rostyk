@@ -17,7 +17,7 @@ public class UserServiceImplementation implements UserService {
 
     /**
      * Constructor
-     * @param userRepository
+     * @param userRepository - User Repository
      */
     public UserServiceImplementation(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -25,7 +25,7 @@ public class UserServiceImplementation implements UserService {
 
     /**
      * Method for creation User in DataBase
-     * @param userDto
+     * @param userDto - user DTO
      * @return User() create new User in DataBase
      */
     @Override
@@ -42,6 +42,44 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<UserDto> readAllUsers() {
         return UserMapper.mapToUserDtoList(userRepository.findAll());
+    }
+
+    /**
+     * Method for reading User by ID from DataBase
+     * @param id ID of User
+     * @return User by ID
+     */
+    @Override
+    public UserDto readUserById(int id) {
+        return UserMapper.mapToUserDto(userRepository.getReferenceById(id));
+    }
+
+    /**
+     * Method for Updating User in DataBase
+     * @param userDto
+     * update User in DataBase
+     */
+    @Override
+    public UserDto updateUser(UserDto userDto) {
+        User updatedUser = userRepository.getReferenceById(userDto.getId());
+        updatedUser.setName(userDto.getName());
+        updatedUser.setSurname(userDto.getSurname());
+        updatedUser.setEmail(userDto.getEmail());
+        updatedUser.setLogin(userDto.getLogin());
+        updatedUser.setPassword(userDto.getPassword());
+        updatedUser.setBirthday(userDto.getBirthday());
+        updatedUser.setRole(userDto.getRole());
+        updatedUser.setBooks(userDto.getBooks());
+        return UserMapper.mapToUserDto(userRepository.save(updatedUser));
+    }
+
+    /**
+     * Method for Deleting User from DataBase
+     * @param userDto - User DTO
+     */
+    @Override
+    public void delete(UserDto userDto) {
+        userRepository.delete(UserMapper.mapToUser(userDto));
     }
 
 

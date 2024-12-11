@@ -16,7 +16,7 @@ public class RoleController {
 
     /** GET form
      * CREATE Role
-     * @param role
+     * @param role - Role
      * @return form for creation Role
      */
     @GetMapping("/new")
@@ -26,7 +26,7 @@ public class RoleController {
 
     /** POST Role
      * CREATE Role
-     * @param role
+     * @param role - Role
      * @return list Roles
      */
     @PostMapping("/create")
@@ -37,7 +37,7 @@ public class RoleController {
 
     /**
      * READ ALL Roles
-     * @param model
+     * @param model - Model
      * @return list of Roles
      */
     @GetMapping("")
@@ -50,11 +50,11 @@ public class RoleController {
     /**
      * READ Role by ID
      * @param id - Role Id
-     * @param model
+     * @param model Model
      * @return Role by Id
      */
     @GetMapping("/{id}")
-    public String readRollById(@PathVariable("id") int id, Model model) {
+    public String readRoleById(@PathVariable("id") int id, Model model) {
         model.addAttribute("role", roleServiceImplementation.readRoleById(id));
         return "roles/id";
     }
@@ -62,8 +62,8 @@ public class RoleController {
     /** GET form
      * UPDATE role by ID
      * @param id - Role Id
-     * @param model
-     * @return form for Updating Role Role
+     * @param model - Model
+     * @return form for Updating Role
      */
     @GetMapping("update/{id}")
     public String readRoleForUpdate(@PathVariable("id") int id, Model model) {
@@ -74,7 +74,7 @@ public class RoleController {
     /**POST Update Role
      * UPDATE role by ID
      * @param id - path variable ID
-     * @param role -
+     * @param role - Role
      * @return list Roles
      */
     @PostMapping("update/{id}")
@@ -86,7 +86,7 @@ public class RoleController {
     /**
      * DELETE role by ID
      * @param id - path variable ID
-     * @param role -
+     * @param role - Role
      * @return list Roles
      */
     @PostMapping("delete/{id}")
