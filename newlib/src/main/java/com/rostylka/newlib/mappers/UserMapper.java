@@ -13,8 +13,8 @@ public class UserMapper {
 
     /**
      * Method for transforming User into UserDTo
-     * @param user
-     * @return userDTO
+     * @param user - User
+     * @return userDTO - User DTO
      */
     public static UserDto mapToUserDto(User user) {
         return new UserDto(user.getId(),
@@ -30,8 +30,8 @@ public class UserMapper {
 
     /**
      * Method for transforming UserDTO into User
-     * @param userDto
-     * @return user
+     * @param userDto - user DTO
+     * @return user - User
      */
     public static User mapToUser(UserDto userDto) {
         return new User(userDto.getId(),
@@ -56,5 +56,18 @@ public class UserMapper {
             dtoUsers.add(UserMapper.mapToUserDto(user));
         }
         return dtoUsers;
+    }
+
+    /**
+     * Method for transforming User DTO list into User list
+     * @param dtoUsers list of Users
+     * @return list of Users
+     */
+    public static List<User> mapToUserList(List<UserDto> dtoUsers) {
+        List<User> users = new ArrayList<>();
+        for (UserDto dtoUser : dtoUsers) {
+            users.add(UserMapper.mapToUser(dtoUser));
+        }
+        return users;
     }
 }

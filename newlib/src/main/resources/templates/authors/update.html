@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Author</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<h2>
+    Update Author
+</h2>
+<body>
+<form th:method="POST" th:action="@{/authors/update/{id} (id = ${author.getId()})}" th:object=${author}>
+    <table>
+        <tr>
+            <td><label for="name"> Name: </label></td>
+            <td><input type="text" th:field="*{name}" th:value="${author.getName()}" id="name"/></td>
+        </tr>
+        <tr>
+            <td><label for="surname"> Surname: </label></td>
+            <td><input type="text" th:field="*{surname}" th:value="${author.getSurname()}"id="surname"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Update"></td>
+            <td><input type="reset" value="Clear"></td>
+        </tr>
+    </table>
+</form>
+<form action="/authors">
+    <button>All authors</button>
+</form>
+</body>
+</html>

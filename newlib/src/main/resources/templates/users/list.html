@@ -6,41 +6,43 @@
     <title>Users</title>
     <link rel="stylesheet" href="/styles/liststyles.css">
 </head>
-<h2>
-    List of Users
-</h2>
 <body>
+<h2>List of Users</h2>
 <table>
+    <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Surname</th>
-        <th>e-mail</th>
-        <th>login</th>
-        <th>password</th>
-        <th>birthday</th>
-        <th>role</th>
+        <th>E-mail</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Birthday</th>
+        <th>Role</th>
         <th>
             <form class="btn btn-success" action="/home">
-                <button>home</button>
+                <button>Home</button>
             </form>
         </th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="user : ${users}">
         <td th:text="${user.getId()}">ID</td>
-        <td th:text="${user.getName()}">name</td>
-        <td th:text="${user.getSurname()}">surname</td>
-        <td th:text="${user.getEmail()}">email</td>
-        <td th:text="${user.getLogin()}">login</td>
-        <td th:text="${user.getPassword()}">password</td>
-        <td th:text="${user.getBirthday()}">birthday</td>
-        <td th:text="${user.getRole()}">role</td>
+        <td th:text="${user.getName()}">Name</td>
+        <td th:text="${user.getSurname()}">Surname</td>
+        <td th:text="${user.getEmail()}">E-mail</td>
+        <td th:text="${user.getLogin()}">Login</td>
+        <td th:text="${user.getPassword()}">Password</td>
+        <td th:text="${user.getBirthday()}">Birthday</td>
+        <td th:text="${user.getRole()}">Role</td>
         <td>
             <form th:method="GET" class="btn btn-success" th:action="@{/users/{id} (id = ${user.getId()})}">
                 <button>Goto</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>

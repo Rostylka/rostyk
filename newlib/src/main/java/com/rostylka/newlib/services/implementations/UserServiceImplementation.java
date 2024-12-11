@@ -1,12 +1,17 @@
 package com.rostylka.newlib.services.implementations;
 
+import com.rostylka.newlib.dto.RoleDto;
 import com.rostylka.newlib.dto.UserDto;
+import com.rostylka.newlib.mappers.RoleMapper;
 import com.rostylka.newlib.mappers.UserMapper;
+import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -11,20 +11,23 @@ h2 {
     margin-bottom: 20px;
 }
 
-table {
-    width: 600px;
+form {
     max-width: 600px;
     margin: 0 auto;
-    border-collapse: collapse;
+    padding: 20px;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 td {
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    vertical-align: top;
 }
 
 label {
@@ -34,37 +37,22 @@ label {
     color: #333;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #e9ecef;
+    margin-bottom: 10px;
 }
 
+input[type="submit"],
+input[type="reset"],
 button {
-    width: 200px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #009879;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #007f67;
-}
-
-form {
-    width: 200px;
-    margin: 0;
-}
-
-input[type="submit"], input[type="reset"], button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -76,10 +64,11 @@ input[type="submit"], input[type="reset"], button {
     margin-top: 10px;
 }
 
-input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover {
     background-color: #007f67;
 }
-
 .del {
-    background-color: #b81c1c;
-                }
+    background-color: firebrick;
+}

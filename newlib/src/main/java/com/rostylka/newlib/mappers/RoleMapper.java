@@ -13,8 +13,8 @@ import java.util.List;
 public class RoleMapper {
     /**
      * Method for transforming Role into UserDTo
-     * @param role
-     * @return roleDTO
+     * @param role - Role
+     * @return roleDTO - Role DTO
      */
     public static RoleDto mapToRoleDto(Role role) {
         return new RoleDto(
@@ -24,8 +24,8 @@ public class RoleMapper {
 
     /**
      * Method for transforming roleDTO into Role
-     * @param roleDto
-     * @return role
+     * @param roleDto - Role DTO
+     * @return role - Role
      */
     public static Role mapToRole(RoleDto roleDto) {
         return new Role(
@@ -44,5 +44,18 @@ public class RoleMapper {
             dtoRoles.add(RoleMapper.mapToRoleDto(role));
         }
         return dtoRoles;
+    }
+
+    /**
+     * Method for transforming Role DTO list into Role list
+     * @param dtoRoles list of Roles
+     * @return list of Roles
+     */
+    public static List<Role> mapToRoleList(List<RoleDto> dtoRoles) {
+        List<Role> roles = new ArrayList<>();
+        for (RoleDto dtoRole : dtoRoles) {
+            roles.add(RoleMapper.mapToRole(dtoRole));
+        }
+        return roles;
     }
 }

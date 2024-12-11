@@ -1,9 +1,7 @@
 package com.rostylka.newlib.controllers;
 
-import com.rostylka.newlib.dto.RoleDto;
 import com.rostylka.newlib.mappers.RoleMapper;
 import com.rostylka.newlib.mappers.UserMapper;
-import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.services.implementations.RoleServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
@@ -11,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -31,7 +26,8 @@ public class UserController {
      */
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user, Model model) {
-        getAllRoles(model);
+        model.addAttribute("roles",
+                RoleMapper.mapToRoleList(roleServiceImplementation.readAllRoles()));
         return "users/new";
     }
 
@@ -82,7 +78,8 @@ public class UserController {
     @GetMapping("update/{id}")
     public String readUserForUpdate(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
-        getAllRoles(model);
+        model.addAttribute("roles",
+                RoleMapper.mapToRoleList(roleServiceImplementation.readAllRoles()));
         return "users/update";
     }
 
@@ -108,20 +105,6 @@ public class UserController {
     public String deleteRole(@PathVariable("id") int id, @ModelAttribute("user") User user) {
         userServiceImplementation.delete(UserMapper.mapToUserDto(user));
         return "redirect:/users";
-    }
-
-    /**
-     * Servise method for getting all Roles an adding them as Model Attribute
-     * @param model Model
-     */
-    private void getAllRoles(Model model) {
-        List<Role> roles = new ArrayList<>();
-        List<RoleDto> dtoRoles = roleServiceImplementation.readAllRoles();
-        for (RoleDto roleDto : dtoRoles) {
-            roles.add(RoleMapper.mapToRole(roleDto));
-        }
-        model.addAttribute("roles",
-                roles);
     }
 
     @Autowired
