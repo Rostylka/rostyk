@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
@@ -22,7 +23,7 @@
     <button>Update</button>
 </form>
 <form th:object=${role} th:method="POST" th:action="@{/roles/delete/{id} (id = ${role.getId()})}">
-    <button>Delete</button>
+    <button class="del">Delete</button>
 </form>
 
 <form action="/roles">
