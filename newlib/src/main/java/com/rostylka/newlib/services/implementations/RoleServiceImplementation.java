@@ -5,20 +5,18 @@ import com.rostylka.newlib.mappers.RoleMapper;
 import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.repositories.RoleRepository;
 import com.rostylka.newlib.services.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RoleServiceImplementation implements RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     /**
      * Constructor
-     * @param roleRepository
+     * @param roleRepository - role Repository
      */
     public RoleServiceImplementation(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
@@ -26,7 +24,7 @@ public class RoleServiceImplementation implements RoleService {
 
     /**
      * Method for creation Role in DataBase
-     * @param roleDto
+     * @param roleDto - Role DTO
      * @return Role create new Role in DataBase
      */
     @Override
@@ -70,7 +68,7 @@ public class RoleServiceImplementation implements RoleService {
 
     /**
      * Method for Deleting Role from DataBase
-     * @param roleDto
+     * @param roleDto - Role DTO
      */
     @Override
     public void delete(RoleDto roleDto) {

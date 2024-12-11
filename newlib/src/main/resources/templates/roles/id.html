@@ -15,13 +15,7 @@
             <td><label for="type"> Name: </label></td>
             <td><input type="text" th:value="${role.getRoleName()}" id="type" disabled/></td>
         </tr>
-        <tr>
-            <td></td>
-            <td>
 
-            </td>
-
-        </tr>
     </table>
 </form>
 <form th:object=${role} th:method="GET" th:action="@{/roles/update/{id} (id = ${role.getId()})}">
