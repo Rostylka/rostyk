@@ -39,7 +39,7 @@ public class User {
     @Column(name = "birthday", nullable = true)
     private LocalDate birthday;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_role")
     private Role role;
 

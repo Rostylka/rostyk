@@ -11,15 +11,18 @@
 </h2>
 <body>
 <table>
+    <thead>
     <tr>
         <th>ID</th>
         <th>Role</th>
-        <td>
+        <th>
             <form class="btn btn-success" action="/home">
                 <button>home</button>
             </form>
-        </td>
+        </th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="role: ${roles}">
         <td th:text="${role.getId()}">ID</td>
         <td th:text="${role.getRoleName()}">name</td>
@@ -29,6 +32,7 @@
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>

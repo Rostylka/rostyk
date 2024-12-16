@@ -13,6 +13,7 @@ import java.util.List;
 public class RoleMapper {
     /**
      * Method for transforming Role into UserDTo
+     *
      * @param role - Role
      * @return roleDTO - Role DTO
      */
@@ -24,6 +25,7 @@ public class RoleMapper {
 
     /**
      * Method for transforming roleDTO into Role
+     *
      * @param roleDto - Role DTO
      * @return role - Role
      */
@@ -35,6 +37,7 @@ public class RoleMapper {
 
     /**
      * Method for transforming Role list into Role DTO list
+     *
      * @param roles list of Roles
      * @return list of Roles DTO
      */
@@ -48,6 +51,7 @@ public class RoleMapper {
 
     /**
      * Method for transforming Role DTO list into Role list
+     *
      * @param dtoRoles list of Roles
      * @return list of Roles
      */

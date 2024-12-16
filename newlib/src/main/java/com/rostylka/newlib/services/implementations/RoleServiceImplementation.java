@@ -1,10 +1,14 @@
 package com.rostylka.newlib.services.implementations;
 
 import com.rostylka.newlib.dto.RoleDto;
+import com.rostylka.newlib.dto.UserDto;
 import com.rostylka.newlib.mappers.RoleMapper;
+import com.rostylka.newlib.mappers.UserMapper;
 import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.repositories.RoleRepository;
+import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +17,8 @@ import java.util.List;
 public class RoleServiceImplementation implements RoleService {
 
     private RoleRepository roleRepository;
+    private UserRepository userRepository;
+    private UserServiceImplementation userServiceImplementation;
 
     /**
      * Constructor
@@ -72,6 +78,20 @@ public class RoleServiceImplementation implements RoleService {
      */
     @Override
     public void delete(RoleDto roleDto) {
+        for (UserDto userDto: userServiceImplementation.findByRole(RoleMapper.mapToRole(roleDto))            ) {
+            userDto.setRole(null);
+            userRepository.save(UserMapper.mapToUser(userDto));
+        }
         roleRepository.delete(RoleMapper.mapToRole(roleDto));
+    }
+
+    @Autowired
+    public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
+        this.userServiceImplementation = userServiceImplementation;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }

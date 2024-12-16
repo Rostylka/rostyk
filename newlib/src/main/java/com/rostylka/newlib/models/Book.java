@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,11 +27,11 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "id_book"),
             inverseJoinColumns = @JoinColumn(name = "id_author"))
-    private List<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
     @ManyToMany()
     @JoinTable(name = "users_books",
@@ -36,5 +39,16 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "id_user"))
     private List<User> users;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return Objects.equals(getTitle(), book.getTitle()) && Objects.equals(getAuthors(), book.getAuthors()) && Objects.equals(getUsers(), book.getUsers());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle(), getAuthors(), getUsers());
+    }
 }

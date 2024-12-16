@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new Book</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<h2>
+    Create Book
+</h2>
+<body>
+<form th:method="POST" th:action="@{/books/create}" >
+    <table>
+        <tr> <td><h3>Book:</h3></td></tr>
+        <tr>
+            <td><label for="title"> Title: </label></td>
+            <td><input type="text" th:field="${book.title}" id="title"/></td>
+        </tr>
+        <tr> <td><h3>Author:</h3></td></tr>
+        <tr>
+            <td><label for="name"> Name: </label></td>
+            <td><input type="text" th:field="${author.name}" id="name"/></td>
+        </tr>
+        <tr>
+            <td><label for="surname"> Surname: </label></td>
+            <td><input type="text" th:field="${author.surname}" id="surname"/>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Create"></td>
+            <td><input type="reset" value="Clear"></td>
+        </tr>
+    </table>
+</form>
+<form action="/authors">
+    <button>All authors</button>
+</form>
+</body>
+</html>

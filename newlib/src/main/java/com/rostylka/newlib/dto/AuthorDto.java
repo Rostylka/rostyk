@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,5 +17,20 @@ public class AuthorDto {
     private int id;
     private String name;
     private String surname;
-    private List<Book> books;
+    private Set<Book> books;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AuthorDto)) return false;
+        AuthorDto authorDto = (AuthorDto) o;
+        return Objects.equals(getName(), authorDto.getName()) && Objects.equals(getSurname(), authorDto.getSurname()) && Objects.equals(getBooks(), authorDto.getBooks());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSurname(), getBooks());
+    }
 }
+
+
