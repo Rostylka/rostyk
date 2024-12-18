@@ -1,6 +1,7 @@
 package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
+import com.rostylka.newlib.dto.BookDto;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Author;
@@ -10,15 +11,9 @@ import com.rostylka.newlib.services.implementations.BookServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/books")
@@ -26,8 +21,8 @@ public class BookController {
 
     private BookServiceImplementation bookServiceImplementation;
     private AuthorServiceImplementation authorServiceImplementation;
-    private Book newBook;
-    private Author newAuthor;
+    private BookDto bookDto;
+
 
     /**
      * GET form
@@ -39,7 +34,7 @@ public class BookController {
      * @return list Books
      */
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("author") Author author, @ModelAttribute("book") Book book,
+    public String newBook(@ModelAttribute("author") AuthorDto author, @ModelAttribute("book") Book book,
                           Model model) {
         return "books/new";
     }
@@ -56,8 +51,8 @@ public class BookController {
     @PostMapping("/create")
     public String createBook(@ModelAttribute("author") Author author, @ModelAttribute("book") Book book,
                              Model model) {
-        Set<Author> authorSet = book.getAuthors();
-        authorSet.add(author);
+        List<Author> authors = book.getAuthors();
+        authors.add(author);
         bookServiceImplementation.createBook(BookMapper.mapToBookDto(book));
         return "redirect:/books";
     }
@@ -75,13 +70,66 @@ public class BookController {
         return "books/list";
     }
 
-    @Autowired
-    public void setAuthorServiceImplementation(AuthorServiceImplementation authorServiceImplementation) {
-        this.authorServiceImplementation = authorServiceImplementation;
+    /**
+     * READ book by ID
+     * @param id - Book Id
+     * @param model Model
+     * @return Book by Id
+     */
+    @GetMapping("/{id}")
+    public String readBookById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", bookServiceImplementation.readBookById(id));
+        return "books/id";
+    }
+
+    /** GET form
+     * UPDATE Book by ID
+     * @param id - Book Id
+     * @param model - Model
+     * @return form for Updating Book
+     */
+    @GetMapping("update/{id}")
+    public String readBookForUpdate(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto,
+                                    Model model) {
+        model.addAttribute("book", bookServiceImplementation.readBookById(id));
+        return "books/update";
+    }
+
+    /**POST Update Book TODO this method doesn't work correctly
+     * UPDATE Book by ID
+     * @param id - path variable ID
+     * @param book - Book
+     * @return list Books
+     */
+    @PostMapping("update/{id}")
+    public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
+        bookServiceImplementation.updateBook(BookMapper.mapToBookDto(book));
+        return "redirect:/books";
+    }
+
+    /** POST
+     * Add Author to the AuthorList of Book
+     * @param id - Id
+     * @param authorDto - Author
+     * @return Updated boob
+     */
+    @PostMapping("update/{id}/addAuthor")
+    public String addAuthorToBook(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto) {
+        authorDto.setId(0);
+        authorDto = authorServiceImplementation.createAuthor(authorDto);
+        bookDto = bookServiceImplementation.readBookById(id);
+        bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
+        bookServiceImplementation.updateBook(bookDto);
+        return "redirect:/books/update/{id}";
     }
 
     @Autowired
     public void setBookServiceImplementation(BookServiceImplementation bookServiceImplementation) {
         this.bookServiceImplementation = bookServiceImplementation;
+    }
+
+    @Autowired
+    public void setAuthorServiceImplementation(AuthorServiceImplementation authorServiceImplementation) {
+        this.authorServiceImplementation = authorServiceImplementation;
     }
 }

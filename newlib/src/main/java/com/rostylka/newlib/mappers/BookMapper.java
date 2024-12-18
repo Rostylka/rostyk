@@ -1,8 +1,6 @@
 package com.rostylka.newlib.mappers;
 
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.models.Book;
 
 import java.util.ArrayList;

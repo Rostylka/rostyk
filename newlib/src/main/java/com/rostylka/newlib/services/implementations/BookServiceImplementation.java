@@ -1,11 +1,14 @@
 package com.rostylka.newlib.services.implementations;
 
+import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
+import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.repositories.BookRepository;
 import com.rostylka.newlib.services.BookService;
 import com.rostylka.newlib.services.BookService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,6 +70,17 @@ public class BookServiceImplementation implements BookService {
         updatedBook.setAuthors(bookDto.getAuthors());
         updatedBook.setUsers(bookDto.getUsers());
         return BookMapper.mapToBookDto(bookRepository.save(updatedBook));
+    }
+
+    /**
+     * Method for adding author to book
+     * @param bookDto - bookDTO
+     * @param authorDto - authorDTO
+     * @return Book DTO with added Author
+     */
+    public BookDto addAuthor(BookDto bookDto, AuthorDto authorDto) {
+        bookDto.getAuthors().add(AuthorMapper.mapToAuthor(authorDto));
+        return bookDto;
     }
 
     /**

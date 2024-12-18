@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<body>
+<h2> View Book</h2>
+<form>
+    <table>
+        <tr>
+            <td><label for="title"> Title: </label></td>
+            <td><input type="text" th:value="${book.getTitle()}" id="title" disabled/></td>
+        </tr>
+        <tr>
+            <td><label for="authors"> Authors: </label></td>
+            <td><input th:each="author:${book.getAuthors()}" type="text" th:value="${author.getName()} + ' ' +${author.getSurname()}" id="authors" disabled/>
+            </td>
+        </tr>
+    </table>
+</form>
+<form th:object=${book} th:method="GET" th:action="@{/books/update/{id} (id = ${book.getId()})}">
+    <button>Update</button>
+</form>
+<form th:object=${book} th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
+    <button class="del">Delete</button>
+</form>
+
+<form action="/books">
+    <button>All books</button>
+</form>
+</body>
+</html>

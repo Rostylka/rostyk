@@ -18,7 +18,7 @@ import java.util.Set;
 public class BookDto {
     private int id;
     private String title;
-    private Set<Author> authors;
+    private List<Author> authors;
     private List<User> users;
 
     @Override
