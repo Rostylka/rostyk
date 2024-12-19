@@ -69,6 +69,27 @@ input[type="reset"]:hover,
 button:hover {
     background-color: #007f67;
 }
+
 .del {
     background-color: firebrick;
+}
+
+.delete-link {
+    display: inline-block;
+    padding: 10px;
+    background-color: #ff4b4b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 5px;
+
+}
+
+.delete-link:hover {
+    background-color: #e04343;
+}
+
+button {
+    display: inline-block;
+    width: auto;
 }

@@ -92,10 +92,10 @@ public class AuthorController {
      * DELETE Author by ID
      * @param id - path variable ID
      * @param author - Author
-     * @return list Roles
+     * @return list Authors
      */
     @PostMapping("delete/{id}")
-    public String deleteRole(@PathVariable("id") int id, @ModelAttribute("author") Author author) {
+    public String deleteAuthor(@PathVariable("id") int id, @ModelAttribute("author") Author author) {
         authorServiceImplementation.delete(AuthorMapper.mapToAuthorDto(author));
         return "redirect:/authors";
     }

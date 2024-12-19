@@ -95,15 +95,17 @@ public class BookController {
         return "books/update";
     }
 
-    /**POST Update Book TODO this method doesn't work correctly
+    /**POST Update Book
      * UPDATE Book by ID
      * @param id - path variable ID
-     * @param book - Book
+     * @param bookDto - Book DTO
      * @return list Books
      */
     @PostMapping("update/{id}")
-    public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
-        bookServiceImplementation.updateBook(BookMapper.mapToBookDto(book));
+    public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") BookDto bookDto) {
+        BookDto updatedBook = bookServiceImplementation.readBookById(id);
+        updatedBook.setTitle(bookDto.getTitle());
+        bookServiceImplementation.updateBook(updatedBook);
         return "redirect:/books";
     }
 
@@ -111,16 +113,43 @@ public class BookController {
      * Add Author to the AuthorList of Book
      * @param id - Id
      * @param authorDto - Author
-     * @return Updated boob
+     * @return Updated Book
      */
-    @PostMapping("update/{id}/addAuthor")
+    @PostMapping("update/{id}/add/author")
     public String addAuthorToBook(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto) {
-        authorDto.setId(0);
+        authorDto.setId(0); //TODO Try to remove this
         authorDto = authorServiceImplementation.createAuthor(authorDto);
         bookDto = bookServiceImplementation.readBookById(id);
         bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
         bookServiceImplementation.updateBook(bookDto);
         return "redirect:/books/update/{id}";
+    }
+
+    //TODO try to make POST
+    /**
+     * Delete Author from book by ID
+      * @param id - Book Id
+     * @param authorId - Author ID
+     * @return Updated Book
+     */
+    @GetMapping("/update/{id}/delete/author/{authorId}")
+    public String deleteAuthorFromBook(@PathVariable("id") int id, @PathVariable("authorId") int authorId) {
+        bookDto = bookServiceImplementation.readBookById(id);
+        bookDto.getAuthors().remove(authorId);
+        bookServiceImplementation.updateBook(bookDto);
+        return "redirect:/books/update/{id}";
+    }
+
+    /**
+     * DELETE Book by ID
+     * @param id - path variable ID Book
+     * @param book - Book
+     * @return list Books
+     */
+    @PostMapping("delete/{id}")
+    public String deleteBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
+        bookServiceImplementation.delete(BookMapper.mapToBookDto(book));
+        return "redirect:/books";
     }
 
     @Autowired

@@ -76,7 +76,4 @@ public class AuthorServiceImplementation implements AuthorService {
     public void delete(AuthorDto authorDto) {
         authorRepository.delete(AuthorMapper.mapToAuthor(authorDto));
     }
-
-
-
 }
