@@ -2,7 +2,6 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;

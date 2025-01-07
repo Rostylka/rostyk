@@ -3,11 +3,13 @@ package com.rostylka.newlib.services.implementations;
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.models.Author;
+import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.repositories.AuthorRepository;
 import com.rostylka.newlib.services.AuthorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AuthorServiceImplementation implements AuthorService {
@@ -74,6 +76,9 @@ public class AuthorServiceImplementation implements AuthorService {
      */
     @Override
     public void delete(AuthorDto authorDto) {
-        authorRepository.delete(AuthorMapper.mapToAuthor(authorDto));
+            Set<Book> books = readAuthorById(authorDto.getId()).getBooks();
+            if (books.isEmpty()) {
+            authorRepository.delete(AuthorMapper.mapToAuthor(authorDto));
+            }
     }
 }
