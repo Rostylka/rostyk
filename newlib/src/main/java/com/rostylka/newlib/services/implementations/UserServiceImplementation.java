@@ -6,6 +6,8 @@ import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,5 +94,32 @@ public class UserServiceImplementation implements UserService {
         return UserMapper.mapToUserDtoList(userRepository.findByRole(role));
     }
 
+    /**
+     * Method for finding User by login
+     * @param login - User's login
+     * @return UserDTO with such login
+     */
+    public UserDto findByLogin(String login) {
+        return UserMapper.mapToUserDto(userRepository.findByLogin(login));
+    }
 
+    /**
+     * Method for creation Users Details for Spring Security Login
+      * @param login User's Login
+     * @return Users Details if User Login is found
+     * @throws UsernameNotFoundException - Exception when User is not found
+     */
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        UserDto userByLogin = findByLogin(login);
+        if (userByLogin != null) {
+            var springUser = org.springframework.security.core.userdetails.User
+                    .withUsername(userByLogin.getLogin())
+                    .password(userByLogin.getPassword())
+                    .roles(userByLogin.getRole().getRoleName())
+                    .build();
+            return springUser;
+        }
+        return null;
+    }
 }

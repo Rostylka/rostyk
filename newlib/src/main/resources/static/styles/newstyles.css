@@ -93,3 +93,17 @@ button {
     display: inline-block;
     width: auto;
 }
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: #333;
+    font-weight: bold;
+}

@@ -1,13 +1,14 @@
 package com.rostylka.newlib.services;
 
 import com.rostylka.newlib.dto.UserDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 /** User Service interface
  *
  */
-public interface UserService {
+public interface UserService extends UserDetailsService {
     /**
      * Method for creation User in DataBase
      * @param userDto - User DTO
