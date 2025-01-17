@@ -11,10 +11,16 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import java.io.IOException;
 
+/**
+ * Class for customization redirect URL after login
+ */
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private UserServiceImplementation userServiceImplementation;
 
     @Override
+    /**
+     * Method for creating URL for each Role
+     */
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         User user = (User) authentication.getPrincipal();

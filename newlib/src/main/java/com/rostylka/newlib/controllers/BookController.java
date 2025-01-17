@@ -8,6 +8,7 @@ import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
+@PreAuthorize("hasAuthority('ROLE_Administrator')")
 public class BookController {
 
     private BookServiceImplementation bookServiceImplementation;

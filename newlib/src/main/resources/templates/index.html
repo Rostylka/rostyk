@@ -1,24 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="/styles/newstyles.css">
+    <link rel="stylesheet" href="/styles/homepage.css">
 </head>
 <body>
 <nav><a href="/login">LogIn</a> <a href="/logout">LogOut</a></nav>
-<form action="/books">
-    <button>All books</button>
-</form>
-<form action="/authors">
-    <button>All authors</button>
-</form>
-<form action="/users">
-    <button>All users</button>
-</form>
-<form action="/roles">
-    <button>All roles</button>
-</form>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Book</th>
+        <th>Authors</th>
+        <th>View Info</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.getId()}">ID</td>
+        <td th:text="${book.getTitle()}">name</td>
+        <td>
+            <ul>
+                <li th:each="author:${book.getAuthors()}" th:text="${author.getName()} + ' ' +${author.getSurname()}">
+                    Author Name
+                </li>
+            </ul>
+        </td>
+        <td>
+            <form th:method="GET" class="btn btn-success" th:action="@{/books/{id} (id = ${book.getId()})}">
+                <button>Goto</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+    <form action="/books">
+        <button>All books</button>
+    </form>
+    <form action="/authors">
+        <button>All authors</button>
+    </form>
+    <form action="/users">
+        <button>All users</button>
+    </form>
+    <form action="/roles">
+        <button>All roles</button>
+    </form>
 </body>
 </html>
