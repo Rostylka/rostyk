@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
-@PreAuthorize("hasAuthority('ROLE_Administrator')")
+//@PreAuthorize("hasAuthority('ROLE_Administrator')")
 public class BookController {
 
     private BookServiceImplementation bookServiceImplementation;
