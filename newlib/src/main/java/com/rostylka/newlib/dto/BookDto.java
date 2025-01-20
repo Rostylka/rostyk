@@ -18,18 +18,16 @@ public class BookDto {
     private int id;
     private String title;
     private List<Author> authors;
-    private List<User> users;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BookDto)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BookDto bookDto = (BookDto) o;
-        return Objects.equals(getTitle(), bookDto.getTitle()) && Objects.equals(getAuthors(), bookDto.getAuthors()) && Objects.equals(getUsers(), bookDto.getUsers());
+        return Objects.equals(title, bookDto.title) && Objects.equals(authors, bookDto.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getAuthors(), getUsers());
+        return Objects.hash(title, authors);
     }
 }

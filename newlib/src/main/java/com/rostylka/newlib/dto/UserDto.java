@@ -24,7 +24,6 @@ public class UserDto {
     private String password;
     private LocalDate birthday;
     private Role role;
-    private List<Book> books;
 
 
 }

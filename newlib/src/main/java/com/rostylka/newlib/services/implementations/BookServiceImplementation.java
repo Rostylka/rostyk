@@ -68,7 +68,6 @@ public class BookServiceImplementation implements BookService {
         Book updatedBook = bookRepository.getReferenceById(bookDto.getId());
         updatedBook.setTitle(bookDto.getTitle());
         updatedBook.setAuthors(bookDto.getAuthors());
-        updatedBook.setUsers(bookDto.getUsers());
         return BookMapper.mapToBookDto(bookRepository.save(updatedBook));
     }
 

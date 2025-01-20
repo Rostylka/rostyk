@@ -30,22 +30,15 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "id_author"))
     private List<Author> authors = new ArrayList<>();
 
-    @ManyToMany()
-    @JoinTable(name = "users_books",
-            joinColumns = @JoinColumn(name = "id_book"),
-            inverseJoinColumns = @JoinColumn(name = "id_user"))
-    private List<User> users;
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(getTitle(), book.getTitle()) && Objects.equals(getAuthors(), book.getAuthors()) && Objects.equals(getUsers(), book.getUsers());
+        return Objects.equals(title, book.title) && Objects.equals(authors, book.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getAuthors(), getUsers());
+        return Objects.hash(title, authors);
     }
 }

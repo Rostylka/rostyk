@@ -72,7 +72,6 @@ public class UserServiceImplementation implements UserService {
         updatedUser.setPassword(userDto.getPassword());
         updatedUser.setBirthday(userDto.getBirthday());
         updatedUser.setRole(userDto.getRole());
-        updatedUser.setBooks(userDto.getBooks());
         return UserMapper.mapToUserDto(userRepository.save(updatedUser));
     }
 

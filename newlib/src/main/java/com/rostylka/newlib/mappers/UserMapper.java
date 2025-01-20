@@ -24,8 +24,8 @@ public class UserMapper {
                 user.getLogin(),
                 user.getPassword(),
                 user.getBirthday(),
-                user.getRole(),
-                user.getBooks());
+                user.getRole());
+                //user.getBooks());
     }
 
     /**
@@ -41,8 +41,8 @@ public class UserMapper {
                 userDto.getLogin(),
                 userDto.getPassword(),
                 userDto.getBirthday(),
-                userDto.getRole(),
-                userDto.getBooks());
+                userDto.getRole());
+                //userDto.getBooks());
     }
 
     /**

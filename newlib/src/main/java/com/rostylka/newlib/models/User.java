@@ -43,12 +43,6 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
 
-    @ManyToMany()
-    @JoinTable(name = "users_books",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_book"))
-    private List<Book> books;
-
     @Override
     public String toString() {
         return "User{" +
@@ -60,7 +54,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", birthday=" + birthday +
                 ", role=" + role +
-                ", books=" + books +
                 '}';
     }
 }
