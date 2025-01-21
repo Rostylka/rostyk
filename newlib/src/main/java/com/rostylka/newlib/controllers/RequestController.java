@@ -17,10 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/requests")
 public class RequestController {
 
-    BookServiceImplementation bookServiceImplementation;
-    UserServiceImplementation userServiceImplementation;
-    RequestServiceImplementation requestServiceImplementation;
+    private BookServiceImplementation bookServiceImplementation;
+    private UserServiceImplementation userServiceImplementation;
+    private RequestServiceImplementation requestServiceImplementation;
 
+
+    /** POST
+     * Method for making request of the book
+     * @param bookId - Book ID
+     * @param userId - User ID
+     * @return Page for requesting book
+     */
     @PostMapping("/add/{bookId}/{userId}")
     public String addRequest(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
         RequestDto requestDto = new RequestDto();
@@ -44,4 +51,5 @@ public class RequestController {
     public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
         this.userServiceImplementation = userServiceImplementation;
     }
+
 }

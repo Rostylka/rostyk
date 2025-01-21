@@ -1,11 +1,7 @@
 package com.rostylka.newlib.services.implementations;
 
-import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.RequestDto;
-import com.rostylka.newlib.dto.UserDto;
-import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.RequestMapper;
-import com.rostylka.newlib.mappers.UserMapper;
 import com.rostylka.newlib.models.Request;
 import com.rostylka.newlib.repositories.RequestRepository;
 import com.rostylka.newlib.services.RequestService;

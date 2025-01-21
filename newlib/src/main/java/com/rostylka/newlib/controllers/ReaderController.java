@@ -17,8 +17,14 @@ public class ReaderController {
     UserServiceImplementation userServiceImplementation;
     BookServiceImplementation bookServiceImplementation;
 
+    /** GET
+     * Readers Page for requesting books
+     * @param id - ID Reader
+     * @param model - Model
+     * @return Page for requesting books
+     */
     @GetMapping("/{id}")
-    public String readUserById(@PathVariable("id") int id, Model model) {
+    public String readBooksForRequest(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("books", bookServiceImplementation.readAllBooks());
         return "readers/id";

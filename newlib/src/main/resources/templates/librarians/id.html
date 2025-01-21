@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian</title>
+    <link rel="stylesheet" href="/styles/liststyles.css">
+</head>
+<body>
+<h2>
+    List of Requested Books
+</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Book</th>
+        <th>Authors</th>
+        <th></th>
+        <th>
+            <form class="btn btn-success" action="/home">
+                <button>home</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request: ${requests}">
+        <td th:text="${request.getId()}">ID</td>
+        <td th:text="${request.getUser().getName() + ' ' + request.getUser().getSurname()}">name</td>
+        <td th:text="${request.getBook().getTitle()}">name</td>
+        <td>
+            <ul>
+                <li th:each="author:${request.getBook().getAuthors()}" th:text="${author.getName()} + ' ' +${author.getSurname()}">Author Name</li>
+            </ul>
+        </td>
+        <td>
+            <form th:method="POST" class="btn btn-success" th:action="@{/librarians/{userId}/confirm/{requestId}
+            (userId = ${user.getId()}, requestId = ${request.getId()})}">
+                <button>Confirm</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="POST" class="btn btn-success" th:action="@{/librarians/{userId}/delete/{requestId}
+            (userId = ${user.getId()}, requestId = ${request.getId()})}">
+                <button class="del">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}/readerlogs
+            (userId = ${user.getId()})}">
+    <button >Reader Logs</button>
+</form>
+</body>
+</html>
