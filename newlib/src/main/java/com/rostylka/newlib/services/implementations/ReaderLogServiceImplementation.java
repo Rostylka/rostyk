@@ -3,6 +3,7 @@ package com.rostylka.newlib.services.implementations;
 import com.rostylka.newlib.dto.ReaderLogDto;
 import com.rostylka.newlib.mappers.ReaderLogMapper;
 import com.rostylka.newlib.models.ReaderLog;
+import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.ReaderLogRepository;
 import com.rostylka.newlib.services.ReaderLogService;
 import org.springframework.stereotype.Service;
@@ -77,5 +78,25 @@ public class ReaderLogServiceImplementation implements ReaderLogService {
     public void delete(ReaderLogDto readerLogDto) {
         readerLogRepository.delete(ReaderLogMapper.mapToReaderLog(readerLogDto));
     }
+
+    /**
+     * Method for finding all Readers Logs by User
+     * @param user - User
+     * @return List of Users Logs DTO
+     */
+    public List<ReaderLogDto> findByUser(User user) {
+        return ReaderLogMapper.mapToReaderLogDtoList(readerLogRepository.findByUser(user));
+    }
+
+    /**
+     * Method for finding all Readers Logs by User where Date In is null (All reading books(Not returned);
+     * @param user - User
+     * @return - List of Users Logs DTO
+     */
+    public List<ReaderLogDto> findByUserAndDateInIsNull(User user) {
+        return ReaderLogMapper.mapToReaderLogDtoList(readerLogRepository.findByUserAndDateInIsNull(user));
+    }
+
+
 }
 

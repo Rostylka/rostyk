@@ -41,7 +41,8 @@ public class LibrarianController {
 
     /** POST
      * Method for confirming Request and then deleting it
-     * @param id - Request ID
+     * @param id - User ID
+     * @param requestId - Request ID
      * @return to the main Librarian Page
      */
     @PostMapping("/{id}/confirm/{requestId}")
@@ -58,7 +59,8 @@ public class LibrarianController {
 
     /** POST
      * Method for deleting Request
-     * @param id - Request ID
+     * @param id - User ID
+     * @param requestId - Request ID
      * @return to the main Librarian Page
      */
     @PostMapping("/{id}/delete/{requestId}")
