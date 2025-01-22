@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReaderLog</title>
+    <title>Book Log</title>
     <link rel="stylesheet" href="/styles/liststyles.css">
 </head>
 <body>
@@ -14,11 +14,10 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>User</th>
         <th>Book</th>
         <th>Authors</th>
-        <th>DateOut</th>
-        <th>DateIn</th>
+        <th>Total Number</th>
+        <th>Reading Number</th>
         <th>
             <form class="btn btn-success" action="/home">
                 <button>home</button>
@@ -27,17 +26,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="readerlog: ${readerlogs}">
-        <td th:text="${readerlog.getId()}">ID</td>
-        <td th:text="${readerlog.getUser().getName() + ' ' + readerlog.getUser().getSurname()}">name</td>
-        <td th:text="${readerlog.getBook().getTitle()}">name</td>
+    <tr th:each="booklog: ${booklogs}">
+        <td th:text="${booklog.getId()}">ID</td>
+        <td th:text="${booklog.getBook().getTitle()}">name</td>
         <td>
             <ul>
-                <li th:each="author:${readerlog.getBook().getAuthors()}" th:text="${author.getName()} + ' ' +${author.getSurname()}">Author Name</li>
+                <li th:each="author:${booklog.getBook().getAuthors()}" th:text="${author.getName()} + ' ' +${author.getSurname()}">Author Name</li>
             </ul>
         </td>
-        <td th:text="${readerlog.getDateOut()}"> dateout </td>
-        <td th:text="${readerlog.getDateIn()}"> datein </td>
+        <td th:text="${booklog.getTotalNumber()}"> totalnumber </td>
+        <td th:text="${booklog.getReadingNumber()}"> readingnumber </td>
         <td>
             <form th:method="GET" class="btn btn-success" th:action="@{/home}">
                 <button>Confirm</button>
@@ -46,6 +44,10 @@
     </tr>
     </tbody>
 </table>
+<form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}/register
+            (userId = ${user.getId()})}">
+    <button>Register Book</button>
+</form>
 <form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}
             (userId = ${user.getId()})}">
     <button>To Main Page</button>

@@ -54,5 +54,12 @@
             (userId = ${user.getId()})}">
     <button >Reader Logs</button>
 </form>
+<form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}/booklogs
+            (userId = ${user.getId()})}">
+    <button >BookLogs</button>
+<form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}/register
+            (userId = ${user.getId()})}">
+    <button >Register</button>
+</form>
 </body>
 </html>

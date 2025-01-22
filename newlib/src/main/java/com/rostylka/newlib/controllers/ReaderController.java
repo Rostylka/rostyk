@@ -1,7 +1,11 @@
 package com.rostylka.newlib.controllers;
 
+import com.rostylka.newlib.dto.BookLogDto;
 import com.rostylka.newlib.dto.ReaderLogDto;
 import com.rostylka.newlib.mappers.UserMapper;
+import com.rostylka.newlib.models.Book;
+import com.rostylka.newlib.repositories.BookLogRepository;
+import com.rostylka.newlib.services.implementations.BookLogServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
 import com.rostylka.newlib.services.implementations.ReaderLogServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
@@ -19,9 +23,10 @@ import java.time.LocalDate;
 @RequestMapping("/readers")
 public class ReaderController {
 
-    UserServiceImplementation userServiceImplementation;
-    BookServiceImplementation bookServiceImplementation;
+    private UserServiceImplementation userServiceImplementation;
+    private BookServiceImplementation bookServiceImplementation;
     private ReaderLogServiceImplementation readerLogServiceImplementation;
+    private BookLogServiceImplementation bookLogServiceImplementation;
 
     /** GET
      * Readers Page for requesting books
@@ -61,6 +66,9 @@ public class ReaderController {
         ReaderLogDto readerLogDto = readerLogServiceImplementation.readReaderLogById(readerLogId);
         readerLogDto.setDateIn(LocalDate.now());
         readerLogServiceImplementation.updateReaderLog(readerLogDto);
+        BookLogDto bookLogDto = bookLogServiceImplementation.findBookLogByBook(readerLogDto.getBook());
+        bookLogDto.setReadingNumber(bookLogDto.getReadingNumber() - 1);
+        bookLogServiceImplementation.updateBookLog(bookLogDto);
         return "redirect:/readers/" + id + "/mybooks";
     }
 
@@ -77,5 +85,10 @@ public class ReaderController {
     @Autowired
     public void setReaderLogServiceImplementation(ReaderLogServiceImplementation readerLogServiceImplementation) {
         this.readerLogServiceImplementation = readerLogServiceImplementation;
+    }
+
+    @Autowired
+    public void setBookLogServiceImplementation(BookLogServiceImplementation bookLogServiceImplementation) {
+        this.bookLogServiceImplementation = bookLogServiceImplementation;
     }
 }

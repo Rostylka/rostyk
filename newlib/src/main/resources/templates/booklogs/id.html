@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Log</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<body>
+<h2> View Book</h2>
+<form th:method="POST" th:action="@{/librarians/{userId}/register/{bookId}
+    (userId = ${user.getId()}, bookId = ${book.getId()})}">
+    <table>
+        <tr>
+            <td><label for="title"> Title: </label></td>
+            <td><input type="text" th:value="${book.getTitle()}" id="title" disabled/></td>
+        </tr>
+        <tr>
+            <td><label for="authors"> Authors: </label></td>
+            <td><input th:each="author:${book.getAuthors()}" type="text"
+                       th:value="${author.getName()} + ' ' +${author.getSurname()}" id="authors" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="totalnumber"> Total Number: </label></td>
+            <td><input type="text" th:value="1" th:field="${booklog.totalNumber}"
+                       id="totalnumber"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register"></td>
+            <td><input type="reset" value="Clear"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

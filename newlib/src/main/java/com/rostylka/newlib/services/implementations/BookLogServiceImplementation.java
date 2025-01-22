@@ -2,6 +2,7 @@ package com.rostylka.newlib.services.implementations;
 
 import com.rostylka.newlib.dto.BookLogDto;
 import com.rostylka.newlib.mappers.BookLogMapper;
+import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.models.BookLog;
 import com.rostylka.newlib.repositories.BookLogRepository;
 import com.rostylka.newlib.services.BookLogService;
@@ -75,5 +76,13 @@ public class BookLogServiceImplementation implements BookLogService {
     @Override
     public void delete(BookLogDto bookLogDto) {
         bookLogRepository.delete(BookLogMapper.mapToBookLog(bookLogDto));
+    }
+
+    /**
+     * Method for finding Book Log by Book
+     * @param book - Book
+     */
+    public BookLogDto findBookLogByBook(Book book){
+        return BookLogMapper.mapToBookLogDto(bookLogRepository.findBookLogByBook(book));
     }
 }
