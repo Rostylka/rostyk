@@ -139,6 +139,7 @@ public class LibrarianController {
     }
 
     /**
+     * POST
      * Method for Confirming registration of Book into Library
      * @param id - ID User
      * @param bookId - ID Book

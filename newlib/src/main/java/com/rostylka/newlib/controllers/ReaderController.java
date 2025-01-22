@@ -28,7 +28,8 @@ public class ReaderController {
     private ReaderLogServiceImplementation readerLogServiceImplementation;
     private BookLogServiceImplementation bookLogServiceImplementation;
 
-    /** GET
+    /**
+     * GET
      * Readers Page for requesting books
      * @param id - ID Reader
      * @param model - Model
@@ -42,6 +43,7 @@ public class ReaderController {
     }
 
     /**
+     * GET
      * Method for viewing all readers Books
      * @param id User ID
      * @param model - Model
@@ -55,7 +57,8 @@ public class ReaderController {
         return "readers/mybooks";
     }
 
-    /** POST
+    /**
+     * POST
      * Method for returning Books into Library
      * @param id - reader ID
      * @param readerLogId - Reader Lg ID
