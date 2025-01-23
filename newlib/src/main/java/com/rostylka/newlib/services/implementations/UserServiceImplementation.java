@@ -6,6 +6,8 @@ import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.UserService;
+import com.rostylka.newlib.utils.security.CustomUserDetails;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -112,6 +114,27 @@ public class UserServiceImplementation implements UserService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         UserDto userByLogin = findByLogin(login);
         if (userByLogin != null) {
+            // Створення CustomUserDetails з роллю та іншими властивостями
+            CustomUserDetails customUserDetails = new CustomUserDetails(
+                    userByLogin.getId(),
+                    userByLogin.getLogin(),
+                    userByLogin.getPassword(),
+                    userByLogin.getRole().getRoleName(), // Зберігаємо лише одну роль
+                    true,  // accountNonExpired
+                    true,  // accountNonLocked
+                    true,  // credentialsNonExpired
+                    true   // enabled
+            );
+
+            return customUserDetails;
+        }
+        throw new UsernameNotFoundException("User not found with login: " + login);
+    }
+
+    /*@Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        UserDto userByLogin = findByLogin(login);
+        if (userByLogin != null) {
             var springUser = org.springframework.security.core.userdetails.User
                     .withUsername(userByLogin.getLogin())
                     .password(userByLogin.getPassword())
@@ -120,5 +143,6 @@ public class UserServiceImplementation implements UserService {
             return springUser;
         }
         return null;
-    }
+    }*/
+
 }

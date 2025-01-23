@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/requests")
-//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian') || hasAnyAuthority('ROLE_Reader')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian') || hasAnyAuthority('ROLE_Reader')")
 public class RequestController {
 
     private BookServiceImplementation bookServiceImplementation;
@@ -31,6 +31,7 @@ public class RequestController {
      * @return Page for requesting book
      */
     @PostMapping("/add/{bookId}/{userId}")
+    //@PreAuthorize("#userId == authentication.principal.id")
     public String addRequest(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
         RequestDto requestDto = new RequestDto();
         requestDto.setBook(BookMapper.mapToBook(bookServiceImplementation.readBookById(bookId)));

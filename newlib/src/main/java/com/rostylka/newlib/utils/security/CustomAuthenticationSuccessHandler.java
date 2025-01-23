@@ -15,30 +15,27 @@ import java.io.IOException;
  * Class for customization redirect URL after login
  */
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private UserServiceImplementation userServiceImplementation;
 
-    @Override
     /**
      * Method for creating URL for each Role
      */
+    @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        User user = (User) authentication.getPrincipal();
-        int userId = userServiceImplementation.findByLogin(user.getUsername()).getId();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
         String redirectUrl = "/";
         for (GrantedAuthority authority : authentication.getAuthorities()) {
             switch (authority.getAuthority()) {
-                case ("ROLE_Reader") -> redirectUrl = "/readers/" + userId;
-                case ("ROLE_Administrator") -> redirectUrl = "/admin/" + userId;
-                case ("ROLE_Librarian") -> redirectUrl = "/librarians/" + userId;
+                case ("ROLE_Reader") -> redirectUrl = "/readers/" + userDetails.getId();
+                case ("ROLE_Administrator") -> redirectUrl = "/admin/" + userDetails.getId();
+                case ("ROLE_Librarian") -> redirectUrl = "/librarians/" + userDetails.getId();
             }
         }
         response.sendRedirect(redirectUrl);
     }
 
-    @Autowired
-    public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
-        this.userServiceImplementation = userServiceImplementation;
-    }
 }
+
+
+
