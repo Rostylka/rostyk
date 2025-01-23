@@ -29,11 +29,7 @@
         <th>Authors</th>
         <th>DateOut</th>
         <th>DateIn</th>
-        <th>
-            <form class="btn btn-success" action="/home">
-                <button>home</button>
-            </form>
-        </th>
+        <th>Send Mail</th>
     </tr>
     </thead>
     <tbody>
@@ -50,7 +46,7 @@
         <td th:text="${readerlog.getDateIn()}"> datein </td>
         <td>
             <form th:method="GET" class="btn btn-success" th:action="@{/home}">
-                <button>Confirm</button>
+                <button>Sand Mail</button>
             </form>
         </td>
     </tr>
