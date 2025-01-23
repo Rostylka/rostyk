@@ -63,3 +63,41 @@ form {
 .del {
     background-color: firebrick;
 }
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: #333;
+    font-weight: bold;
+
+}
+nav form {
+    max-width: 600px;
+    margin: 0;
+    padding: 0px;
+    background: none;
+    border-radius: 10px;
+    box-shadow: none;
+
+
+}
+
+nav button {
+    width: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #009879;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 0px;
+    display: inline-block;
+}

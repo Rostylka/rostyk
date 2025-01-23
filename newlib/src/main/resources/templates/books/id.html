@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
 <body>
+<nav>
+    <form action="/books">
+        <button>All books</button>
+    </form>
+    <form action="/home">
+        <button>Home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2> View Book</h2>
 <form>
     <table>
@@ -27,10 +36,6 @@
 </form>
 <form th:object=${book} th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
     <button class="del">Delete</button>
-</form>
-
-<form action="/books">
-    <button>All books</button>
 </form>
 </body>
 </html>

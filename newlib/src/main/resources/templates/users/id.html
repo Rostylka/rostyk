@@ -6,10 +6,19 @@
     <title>User</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/users">
+        <button>All Users</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     View User
 </h2>
-<body>
 <form>
     <table>
         <tr>
@@ -44,15 +53,11 @@
 
     </table>
 </form>
-<form th:object=${user} th:method="GET" th:action="@{/users/update/{id} (id = ${user.getId()})}">
+<form th:object="${user}" th:method="GET" th:action="@{/users/update/{id} (id = ${user.getId()})}">
     <button>Update</button>
 </form>
-<form th:object=${user} th:method="POST" th:action="@{/users/delete/{id} (id = ${user.getId()})}">
+<form th:object="${user}" th:method="POST" th:action="@{/users/delete/{id} (id = ${user.getId()})}">
     <button class="del">Delete</button>
-</form>
-
-<form action="/users">
-    <button>All Users</button>
 </form>
 </body>
 </html>

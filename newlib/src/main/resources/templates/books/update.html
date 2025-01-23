@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
 <body>
+<nav>
+    <form action="/books">
+        <button>All books</button>
+    </form>
+    <form action="/home">
+        <button>Home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>Update Book</h2>
 <form th:method="POST" th:action="@{/books/update/{id} (id = ${book.getId()})}" th:object=${book}>
     <table>
@@ -50,9 +59,6 @@
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>
-</form>
-<form action="/books">
-    <button>All books</button>
 </form>
 </body>
 </html>

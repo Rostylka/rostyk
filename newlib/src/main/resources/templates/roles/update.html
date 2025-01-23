@@ -6,10 +6,19 @@
     <title>Update Role</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/roles">
+        <button>All Roles</button>
+    </form>
+    <form action="/home">
+        <button>Home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     Update Role
 </h2>
-<body>
 <form th:method="POST" th:action="@{/roles/update/{id} (id = ${role.getId()})}" th:object=${role}>
     <table>
         <tr>
@@ -21,9 +30,6 @@
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>
-</form>
-<form action="/roles">
-    <button>All Roles</button>
 </form>
 </body>
 </html>

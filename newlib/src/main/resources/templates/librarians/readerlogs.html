@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/styles/liststyles.css">
 </head>
 <body>
+<nav>
+    <form th:method="GET" th:action="@{/librarians/{userId}
+            (userId = ${user.getId()})}">
+        <button>To Main Page</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     List of Reading or Read Books
 </h2>
@@ -46,9 +56,5 @@
     </tr>
     </tbody>
 </table>
-<form th:method="GET" class="btn btn-success" th:action="@{/librarians/{userId}
-            (userId = ${user.getId()})}">
-    <button>To Main Page</button>
-</form>
 </body>
 </html>

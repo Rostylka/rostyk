@@ -6,10 +6,19 @@
     <title>new Book</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/books">
+        <button>All books</button>
+    </form>
+    <form action="/home">
+        <button>Home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     Create Book
 </h2>
-<body>
 <form th:method="POST" th:action="@{/books/create}" >
     <table>
         <tr> <td><h3>Book:</h3></td></tr>
@@ -32,9 +41,6 @@
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>
-</form>
-<form action="/authors">
-    <button>All authors</button>
 </form>
 </body>
 </html>

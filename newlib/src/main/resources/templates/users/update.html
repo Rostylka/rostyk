@@ -6,10 +6,19 @@
     <title>Update User</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/users">
+        <button>All Users</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     Update User
 </h2>
-<body>
 <form th:method="POST" th:action="@{/users/update/{id} (id = ${user.getId()})}" th:object=${user}>
     <table>
         <tr>
@@ -51,9 +60,6 @@
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>
-</form>
-<form action="/users">
-    <button>All Users</button>
 </form>
 </body>
 </html>

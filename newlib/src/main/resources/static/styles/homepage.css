@@ -20,6 +20,7 @@ nav a {
     font-weight: bold;
 }
 
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -38,8 +39,9 @@ th {
     background-color: #f2f2f2;
 }
 
+
 button {
-    background-color: #28a745;
+    background-color: #009879;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -48,5 +50,5 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #009879;
 }

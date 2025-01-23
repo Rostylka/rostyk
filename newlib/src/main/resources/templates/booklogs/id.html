@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
 <body>
+<nav>
+    <form th:method="GET" th:action="@{/librarians/{userId}
+            (userId = ${user.getId()})}">
+        <button>To Main Page</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2> View Book</h2>
 <form th:method="POST" th:action="@{/librarians/{userId}/register/{bookId}
     (userId = ${user.getId()}, bookId = ${book.getId()})}">

@@ -6,10 +6,19 @@
     <title>Author</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/authors">
+        <button>All authors</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     View Author
 </h2>
-<body>
 <form>
     <table>
         <tr>
@@ -28,10 +37,6 @@
 </form>
 <form th:object=${author} th:method="POST" th:action="@{/authors/delete/{id} (id = ${author.getId()})}">
     <button class="del">Delete</button>
-</form>
-
-<form action="/authors">
-    <button>All authors</button>
 </form>
 </body>
 </html>

@@ -6,10 +6,19 @@
     <title>Update Author</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/authors">
+        <button>All authors</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     Update Author
 </h2>
-<body>
 <form th:method="POST" th:action="@{/authors/update/{id} (id = ${author.getId()})}" th:object=${author}>
     <table>
         <tr>
@@ -26,9 +35,6 @@
             <td><input type="reset" value="Clear"></td>
         </tr>
     </table>
-</form>
-<form action="/authors">
-    <button>All authors</button>
 </form>
 </body>
 </html>

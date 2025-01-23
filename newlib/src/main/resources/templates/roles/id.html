@@ -6,10 +6,19 @@
     <title>Role</title>
     <link rel="stylesheet" href="/styles/newstyles.css">
 </head>
+<body>
+<nav>
+    <form action="/roles">
+        <button>All Roles</button>
+    </form>
+    <form action="/home">
+        <button>Home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
 <h2>
     View Role
 </h2>
-<body>
 <form>
     <table>
         <tr>
@@ -24,10 +33,6 @@
 </form>
 <form th:object=${role} th:method="POST" th:action="@{/roles/delete/{id} (id = ${role.getId()})}">
     <button class="del">Delete</button>
-</form>
-
-<form action="/roles">
-    <button>All Roles</button>
 </form>
 </body>
 </html>
