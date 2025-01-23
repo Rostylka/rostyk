@@ -114,7 +114,7 @@ public class UserServiceImplementation implements UserService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         UserDto userByLogin = findByLogin(login);
         if (userByLogin != null) {
-            // Створення CustomUserDetails з роллю та іншими властивостями
+
             CustomUserDetails customUserDetails = new CustomUserDetails(
                     userByLogin.getId(),
                     userByLogin.getLogin(),

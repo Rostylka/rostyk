@@ -39,7 +39,7 @@ public class ReaderController {
      */
 
     @GetMapping("/{id}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String readBooksForRequest(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("books", bookServiceImplementation.readAllBooks());
@@ -54,7 +54,7 @@ public class ReaderController {
      * @return - List of readers Books
      */
     @GetMapping("/{id}/mybooks")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String readMyBooks(@PathVariable("id") int id, Model model){
         model.addAttribute("readerlogs", readerLogServiceImplementation.
                 findByUserAndDateInIsNull(UserMapper.mapToUser(userServiceImplementation.readUserById(id))));
@@ -70,7 +70,7 @@ public class ReaderController {
      * @return Page with Reader's books
      */
     @PostMapping("{id}/return/{readerLogId}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String returnBook(@PathVariable("id") int id, @PathVariable("readerLogId") int readerLogId){
         ReaderLogDto readerLogDto = readerLogServiceImplementation.readReaderLogById(readerLogId);
         readerLogDto.setDateIn(LocalDate.now());

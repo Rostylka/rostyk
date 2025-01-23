@@ -31,7 +31,7 @@ public class RequestController {
      * @return Page for requesting book
      */
     @PostMapping("/add/{bookId}/{userId}")
-    //@PreAuthorize("#userId == authentication.principal.id")
+    @PreAuthorize("#userId == authentication.principal.id")
     public String addRequest(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
         RequestDto requestDto = new RequestDto();
         requestDto.setBook(BookMapper.mapToBook(bookServiceImplementation.readBookById(bookId)));

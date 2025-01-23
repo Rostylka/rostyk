@@ -50,7 +50,7 @@ public class LibrarianController {
      * @return to the main Librarian Page
      */
     @PostMapping("/{id}/confirm/{requestId}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String confirmRequest(@PathVariable("id") int id, @PathVariable("requestId") int requestId) {
         RequestDto requestDto = requestServiceImplementation.readRequestById(requestId);
         ReaderLog readerLog = new ReaderLog();
@@ -74,7 +74,7 @@ public class LibrarianController {
      * @return to the main Librarian Page
      */
     @PostMapping("/{id}/delete/{requestId}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String deleteRequest(@PathVariable("id") int id, @PathVariable("requestId") int requestId) {
         RequestDto requestDto = requestServiceImplementation.readRequestById(requestId);
         requestServiceImplementation.delete(requestDto);
@@ -90,7 +90,7 @@ public class LibrarianController {
      * @return Page with all Logs
      */
     @GetMapping("/{id}/readerlogs")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String viewAllReaderLogs(@PathVariable("id") int id, Model model) {
         model.addAttribute("readerlogs", readerLogServiceImplementation.readAllReaderLogs());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
@@ -106,7 +106,7 @@ public class LibrarianController {
      * @return Page with all Logs
      */
     @GetMapping("/{id}/booklogs")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String viewAllBookLogs(@PathVariable("id") int id, Model model) {
         model.addAttribute("booklogs", bookLogServiceImplementation.readAllBookLogs());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
@@ -122,7 +122,7 @@ public class LibrarianController {
      * @return Page with all Logs
      */
     @GetMapping("/{id}/register")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String registerBook(@PathVariable("id") int id, Model model) {
         model.addAttribute("books", bookServiceImplementation.readAllBooks());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
@@ -138,7 +138,7 @@ public class LibrarianController {
      * @return Registration Page of Book
      */
     @GetMapping("/{id}/register/{bookId}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String getRegisterFormOfBook(@PathVariable("id") int id, @PathVariable("bookId") int bookId,
                                         @ModelAttribute("booklog") BookLogDto bookLogDto,
                                         Model model) {
@@ -156,7 +156,7 @@ public class LibrarianController {
      * @return Registration Page
      */
     @PostMapping("/{id}/register/{bookId}")
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String confirmBookRegistration(@PathVariable("id") int id,
                                           @PathVariable("bookId") int bookId,
                                           @ModelAttribute("booklog") BookLogDto bookLogDto) {
