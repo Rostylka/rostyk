@@ -4,12 +4,14 @@ import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/authors")
+//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
 public class AuthorController {
 
     private AuthorServiceImplementation authorServiceImplementation;

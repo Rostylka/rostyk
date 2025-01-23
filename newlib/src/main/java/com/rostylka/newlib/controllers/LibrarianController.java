@@ -7,6 +7,7 @@ import com.rostylka.newlib.mappers.ReaderLogMapper;
 import com.rostylka.newlib.models.ReaderLog;
 import com.rostylka.newlib.services.implementations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/librarians")
+//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
 public class LibrarianController {
 
     private UserServiceImplementation userServiceImplementation;

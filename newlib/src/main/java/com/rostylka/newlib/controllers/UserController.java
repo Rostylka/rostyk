@@ -6,12 +6,14 @@ import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.services.implementations.RoleServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
+//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
 public class UserController {
 
     private UserServiceImplementation userServiceImplementation;

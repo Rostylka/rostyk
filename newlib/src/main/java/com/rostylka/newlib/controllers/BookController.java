@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
-//@PreAuthorize("hasAuthority('ROLE_Administrator')")
+//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
 public class BookController {
 
     private BookServiceImplementation bookServiceImplementation;
@@ -73,9 +73,9 @@ public class BookController {
 
     /**
      * READ book by ID
-     * @param id - Book Id
+     * @param id - Book ID
      * @param model Model
-     * @return Book by Id
+     * @return Book by ID
      */
     @GetMapping("/{id}")
     public String readBookById(@PathVariable("id") int id, Model model) {
@@ -83,9 +83,10 @@ public class BookController {
         return "books/id";
     }
 
-    /** GET form
+    /**
+     * GET form
      * UPDATE Book by ID
-     * @param id - Book Id
+     * @param id - Book ID
      * @param model - Model
      * @return form for Updating Book
      */
@@ -96,7 +97,8 @@ public class BookController {
         return "books/update";
     }
 
-    /**POST Update Book
+    /**
+     * POST Update Book
      * UPDATE Book by ID
      * @param id - path variable ID
      * @param bookDto - Book DTO
@@ -110,7 +112,8 @@ public class BookController {
         return "redirect:/books";
     }
 
-    /** POST
+    /**
+     * POST
      * Add Author to the AuthorList of Book
      * @param id - Id
      * @param authorDto - Author
@@ -129,7 +132,7 @@ public class BookController {
     //TODO try to make POST
     /**
      * Delete Author from book by ID
-      * @param id - Book Id
+     * @param id - Book Id
      * @param authorId - Author ID
      * @return Updated Book
      */
@@ -142,6 +145,7 @@ public class BookController {
     }
 
     /**
+     * POST
      * DELETE Book by ID
      * @param id - path variable ID Book
      * @param book - Book
