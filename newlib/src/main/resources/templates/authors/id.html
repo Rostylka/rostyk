@@ -32,10 +32,10 @@
         </tr>
     </table>
 </form>
-<form th:object=${author} th:method="GET" th:action="@{/authors/update/{id} (id = ${author.getId()})}">
+<form th:object="${author}" th:method="GET" th:action="@{/authors/update/{id} (id = ${author.getId()})}">
     <button>Update</button>
 </form>
-<form th:object=${author} th:method="POST" th:action="@{/authors/delete/{id} (id = ${author.getId()})}">
+<form th:object="${author}" th:method="POST" th:action="@{/authors/delete/{id} (id = ${author.getId()})}">
     <button class="del">Delete</button>
 </form>
 </body>

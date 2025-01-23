@@ -17,7 +17,7 @@
     <a href="/logout">LogOut</a>
 </nav>
 <h2>Update Book</h2>
-<form th:method="POST" th:action="@{/books/update/{id} (id = ${book.getId()})}" th:object=${book}>
+<form th:method="POST" th:action="@{/books/update/{id} (id = ${book.getId()})}" th:object="${book}">
     <table>
         <tr>
             <td><label for="title"> Title: </label></td>

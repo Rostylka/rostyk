@@ -28,10 +28,10 @@
 
     </table>
 </form>
-<form th:object=${role} th:method="GET" th:action="@{/roles/update/{id} (id = ${role.getId()})}">
+<form th:object="${role}" th:method="GET" th:action="@{/roles/update/{id} (id = ${role.getId()})}">
     <button>Update</button>
 </form>
-<form th:object=${role} th:method="POST" th:action="@{/roles/delete/{id} (id = ${role.getId()})}">
+<form th:object="${role}" th:method="POST" th:action="@{/roles/delete/{id} (id = ${role.getId()})}">
     <button class="del">Delete</button>
 </form>
 </body>

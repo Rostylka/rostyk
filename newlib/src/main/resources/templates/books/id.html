@@ -31,10 +31,10 @@
         </tr>
     </table>
 </form>
-<form th:object=${book} th:method="GET" th:action="@{/books/update/{id} (id = ${book.getId()})}">
+<form th:object="${book}" th:method="GET" th:action="@{/books/update/{id} (id = ${book.getId()})}">
     <button>Update</button>
 </form>
-<form th:object=${book} th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
+<form th:object="${book}" th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
     <button class="del">Delete</button>
 </form>
 </body>
