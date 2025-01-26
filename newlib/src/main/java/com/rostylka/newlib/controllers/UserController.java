@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
-@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
 public class UserController {
 
     private UserServiceImplementation userServiceImplementation;

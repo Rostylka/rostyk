@@ -7,6 +7,7 @@ import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
+import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
-@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
 public class BookController {
 
+    private UserServiceImplementation userServiceImplementation;
     private BookServiceImplementation bookServiceImplementation;
     private AuthorServiceImplementation authorServiceImplementation;
     private BookDto bookDto;
@@ -37,6 +39,7 @@ public class BookController {
     @GetMapping("/new")
     public String newBook(@ModelAttribute("author") AuthorDto author, @ModelAttribute("book") Book book,
                           Model model) {
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "books/new";
     }
 
@@ -68,6 +71,7 @@ public class BookController {
     public String index(Model model) {
         model.addAttribute("books",
                 bookServiceImplementation.readAllBooks());
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "books/list";
     }
 
@@ -80,6 +84,7 @@ public class BookController {
     @GetMapping("/{id}")
     public String readBookById(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookServiceImplementation.readBookById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "books/id";
     }
 
@@ -94,6 +99,7 @@ public class BookController {
     public String readBookForUpdate(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto,
                                     Model model) {
         model.addAttribute("book", bookServiceImplementation.readBookById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "books/update";
     }
 
@@ -165,5 +171,10 @@ public class BookController {
     @Autowired
     public void setAuthorServiceImplementation(AuthorServiceImplementation authorServiceImplementation) {
         this.authorServiceImplementation = authorServiceImplementation;
+    }
+
+    @Autowired
+    public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
+        this.userServiceImplementation = userServiceImplementation;
     }
 }

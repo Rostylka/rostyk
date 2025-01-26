@@ -22,7 +22,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/readers")
-//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian') || hasAnyAuthority('ROLE_Reader')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian') || hasAuthority('ROLE_Reader')")
 public class ReaderController {
 
     private UserServiceImplementation userServiceImplementation;

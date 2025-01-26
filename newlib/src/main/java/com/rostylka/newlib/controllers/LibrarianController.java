@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/librarians")
-//@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
 public class LibrarianController {
 
     private UserServiceImplementation userServiceImplementation;

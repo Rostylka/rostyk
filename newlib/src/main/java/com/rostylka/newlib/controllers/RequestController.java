@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/requests")
-@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAnyAuthority('ROLE_Librarian') || hasAnyAuthority('ROLE_Reader')")
+@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian') || hasAuthority('ROLE_Reader')")
 public class RequestController {
 
     private BookServiceImplementation bookServiceImplementation;
