@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/liststyles.css">
+</head>
+<body>
+<nav>
+    <form action="/books">
+        <button>All books</button>
+    </form>
+    <form action="/authors">
+        <button>All authors</button>
+    </form>
+    <form action="/users">
+        <button>All users</button>
+    </form>
+    <form action="/roles">
+        <button>All roles</button>
+    </form>
+    <form th:method="GET" th:action="@{/librarians/{userId}/readerlogs
+            (userId = ${user.getId()})}">
+        <button >Reader Logs</button>
+    </form>
+    <form th:method="GET" th:action="@{/librarians/{userId}/booklogs
+            (userId = ${user.getId()})}">
+        <button >BookLogs</button>
+    </form>
+    <form th:method="GET" th:action="@{/librarians/{userId}/register
+            (userId = ${user.getId()})}">
+        <button >Register</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
+<h2>Administrator</h2>
+</body>
+</html>

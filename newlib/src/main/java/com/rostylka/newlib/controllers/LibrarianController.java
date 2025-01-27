@@ -34,10 +34,11 @@ public class LibrarianController {
      * @return Page for requesting books
      */
     @GetMapping("/{id}")
-  //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     public String readBookRequests(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("requests", requestServiceImplementation.readAllRequests());
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "librarians/id";
     }
 
@@ -94,6 +95,7 @@ public class LibrarianController {
     public String viewAllReaderLogs(@PathVariable("id") int id, Model model) {
         model.addAttribute("readerlogs", readerLogServiceImplementation.readAllReaderLogs());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "librarians/readerlogs";
     }
 
@@ -110,6 +112,7 @@ public class LibrarianController {
     public String viewAllBookLogs(@PathVariable("id") int id, Model model) {
         model.addAttribute("booklogs", bookLogServiceImplementation.readAllBookLogs());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "librarians/booklogs";
     }
 
@@ -126,6 +129,7 @@ public class LibrarianController {
     public String registerBook(@PathVariable("id") int id, Model model) {
         model.addAttribute("books", bookServiceImplementation.readAllBooks());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "librarians/register";
     }
 
@@ -144,6 +148,7 @@ public class LibrarianController {
                                         Model model) {
         model.addAttribute("book", bookServiceImplementation.readBookById(bookId));
         model.addAttribute("user", userServiceImplementation.readUserById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "booklogs/id";
     }
 

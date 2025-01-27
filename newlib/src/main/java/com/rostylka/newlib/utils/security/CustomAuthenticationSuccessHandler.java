@@ -28,7 +28,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         for (GrantedAuthority authority : authentication.getAuthorities()) {
             switch (authority.getAuthority()) {
                 case ("ROLE_Reader") -> redirectUrl = "/readers/" + userDetails.getId();
-                case ("ROLE_Administrator") -> redirectUrl = "/admin/" + userDetails.getId();
+                case ("ROLE_Administrator") -> redirectUrl = "/administrators/" + userDetails.getId();
                 case ("ROLE_Librarian") -> redirectUrl = "/librarians/" + userDetails.getId();
             }
         }

@@ -8,9 +8,8 @@
 </head>
 <body>
 <nav>
-    <form th:method="GET" th:action="@{/librarians/{userId}
-            (userId = ${user.getId()})}">
-        <button>To Main Page</button>
+    <form th:action="${link}">
+        <button>Main Page</button>
     </form>
     <form action="/home">
         <button>home</button>
