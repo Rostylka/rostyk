@@ -3,6 +3,7 @@ package com.rostylka.newlib.controllers;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
+import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorController {
 
     private AuthorServiceImplementation authorServiceImplementation;
+    private UserServiceImplementation userServiceImplementation;
 
     /**
      * GET form
@@ -25,6 +27,7 @@ public class AuthorController {
      */
     @GetMapping("/new")
     public String newAuthor(@ModelAttribute("author") Author author, Model model) {
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "authors/new";
     }
 
@@ -42,6 +45,7 @@ public class AuthorController {
     }
 
     /**
+     * GET
      * READ ALL Authors
      *
      * @param model Model
@@ -51,11 +55,14 @@ public class AuthorController {
     public String index(Model model) {
         model.addAttribute("authors",
                 authorServiceImplementation.readAllAuthors());
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "authors/list";
     }
 
     /**
+     * GET
      * READ Author by ID
+     *
      * @param id - Author Id
      * @param model Model
      * @return Author by Id
@@ -63,10 +70,12 @@ public class AuthorController {
     @GetMapping("/{id}")
     public String readAuthorById(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServiceImplementation.readAuthorById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "authors/id";
     }
 
-    /** GET form
+    /**
+     * GET form
      * UPDATE Author by ID
      * @param id - Author Id
      * @param model - Model
@@ -75,6 +84,7 @@ public class AuthorController {
     @GetMapping("update/{id}")
     public String readAuthorForUpdate(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServiceImplementation.readAuthorById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "authors/update";
     }
 
@@ -91,6 +101,7 @@ public class AuthorController {
     }
 
     /**
+     * POST
      * DELETE Author by ID
      * @param id - path variable ID
      * @param author - Author
@@ -105,5 +116,10 @@ public class AuthorController {
     @Autowired
     public void setAuthorServiceImplementation(AuthorServiceImplementation authorServiceImplementation) {
         this.authorServiceImplementation = authorServiceImplementation;
+    }
+
+    @Autowired
+    public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
+        this.userServiceImplementation = userServiceImplementation;
     }
 }

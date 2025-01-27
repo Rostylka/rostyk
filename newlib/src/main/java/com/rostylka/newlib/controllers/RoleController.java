@@ -3,6 +3,7 @@ package com.rostylka.newlib.controllers;
 import com.rostylka.newlib.mappers.RoleMapper;
 import com.rostylka.newlib.models.Role;
 import com.rostylka.newlib.services.implementations.RoleServiceImplementation;
+import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,18 +16,23 @@ import org.springframework.web.bind.annotation.*;
 public class RoleController {
 
     private RoleServiceImplementation roleServiceImplementation;
+    private UserServiceImplementation userServiceImplementation;
 
-    /** GET form
+    /**
+     * GET form
      * CREATE Role
      * @param role - Role
+     * @param model - Model
      * @return form for creation Role
      */
     @GetMapping("/new")
-    public String newRole(@ModelAttribute("role") Role role) {
+    public String newRole(@ModelAttribute("role") Role role, Model model) {
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "roles/new";
     }
 
-    /** POST Role
+    /**
+     * POST Role
      * CREATE Role
      * @param role - Role
      * @return list Roles
@@ -46,10 +52,12 @@ public class RoleController {
     public String index(Model model) {
         model.addAttribute("roles",
                 roleServiceImplementation.readAllRoles());
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "roles/list";
     }
 
     /**
+     * GET
      * READ Role by ID
      * @param id - Role Id
      * @param model Model
@@ -58,10 +66,12 @@ public class RoleController {
     @GetMapping("/{id}")
     public String readRoleById(@PathVariable("id") int id, Model model) {
         model.addAttribute("role", roleServiceImplementation.readRoleById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "roles/id";
     }
 
-    /** GET form
+    /**
+     * GET form
      * UPDATE role by ID
      * @param id - Role Id
      * @param model - Model
@@ -70,10 +80,12 @@ public class RoleController {
     @GetMapping("update/{id}")
     public String readRoleForUpdate(@PathVariable("id") int id, Model model) {
         model.addAttribute("role", roleServiceImplementation.readRoleById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "roles/update";
     }
 
-    /**POST Update Role
+    /**
+     * POST Update Role
      * UPDATE role by ID
      * @param id - path variable ID
      * @param role - Role
@@ -86,6 +98,7 @@ public class RoleController {
     }
 
     /**
+     * POST
      * DELETE role by ID
      * @param id - path variable ID
      * @param role - Role
@@ -100,5 +113,10 @@ public class RoleController {
     @Autowired
     public void setRoleServiceImplementation(RoleServiceImplementation roleServiceImplementation) {
         this.roleServiceImplementation = roleServiceImplementation;
+    }
+
+    @Autowired
+    public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
+        this.userServiceImplementation = userServiceImplementation;
     }
 }

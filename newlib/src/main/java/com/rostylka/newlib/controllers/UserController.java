@@ -30,6 +30,7 @@ public class UserController {
     public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roles",
                 RoleMapper.mapToRoleList(roleServiceImplementation.readAllRoles()));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "users/new";
     }
 
@@ -47,6 +48,7 @@ public class UserController {
     }
 
     /**
+     * GET
      * READ ALL Users
      *
      * @param model Model
@@ -56,10 +58,12 @@ public class UserController {
     public String index(Model model) {
         model.addAttribute("users",
                 userServiceImplementation.readAllUsers());
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "users/list";
     }
 
     /**
+     * GET
      * READ User by ID
      * @param id - User Id
      * @param model Model
@@ -68,6 +72,7 @@ public class UserController {
     @GetMapping("/{id}")
     public String readUserById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "users/id";
     }
 
@@ -82,10 +87,12 @@ public class UserController {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("roles",
                 RoleMapper.mapToRoleList(roleServiceImplementation.readAllRoles()));
+        model.addAttribute("link", userServiceImplementation.createLink());
         return "users/update";
     }
 
-    /**POST Update User
+    /**
+     * POST Update User
      * UPDATE User by ID
      * @param id - path variable ID
      * @param user - User
@@ -98,6 +105,7 @@ public class UserController {
     }
 
     /**
+     * POST
      * DELETE User by ID
      * @param id - path variable ID
      * @param user - User
