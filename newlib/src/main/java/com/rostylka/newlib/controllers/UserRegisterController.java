@@ -47,11 +47,11 @@ public class UserRegisterController {
                                   BindingResult result){
         if (userRepository.findByLogin(userRegisterDto.getLogin()) != null) {
             result.addError(new FieldError("user", "login",
-                    "login is already used"));
+                    "Login is already used"));
         }
         if(!userRegisterDto.getConfirmedPassword().equals(userRegisterDto.getPassword())) {
             result.addError(new FieldError("user", "confirmedPassword",
-                    "Password and Confirmed Password don't match"));
+                    "Password and Confirmed Password doesn't match"));
         }
         if (result.hasErrors()) {
             return "registers/registration";

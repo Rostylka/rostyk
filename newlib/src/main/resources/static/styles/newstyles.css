@@ -133,3 +133,6 @@ nav button {
     margin-top: 0px;
     display: inline-block;
 }
+.text-danger {
+    color: #ff4b4b;
+}

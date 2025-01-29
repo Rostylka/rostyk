@@ -22,7 +22,8 @@
             <td><input type="text" th:field="*{name}" id="name"/>
                 <p th:if="${#fields.hasErrors('name')}"
                    th:errorclass="text-danger"
-                   th:errors="${user.name}"></p></td>
+                   th:errors="${user.name}"></p>
+            </td>
         </tr>
         <tr>
             <td><label for="surname"> Surname: </label></td>
@@ -52,14 +53,16 @@
             <td><input type="password" th:field="*{password}" id="password"/>
                 <p th:if="${#fields.hasErrors('password')}"
                    th:errorclass="text-danger"
-                   th:errors="${user.password}"></p></td></td>
+                   th:errors="${user.password}"></p>
+            </td>
         </tr>
         <tr>
             <td><label for="confirmedpassword"> confirm password: </label></td>
             <td><input type="password" th:field="*{confirmedPassword}" id="confirmedpassword"/>
                 <p th:if="${#fields.hasErrors('confirmedPassword')}"
                    th:errorclass="text-danger"
-                   th:errors="${user.confirmedPassword}"></p></td>
+                   th:errors="${user.confirmedPassword}"></p>
+            </td>
         </tr>
         <tr>
             <td><label for="birthday"> birthday: </label></td>
