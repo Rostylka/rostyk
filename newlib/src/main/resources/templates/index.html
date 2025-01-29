@@ -23,9 +23,9 @@
     <form th:action="${link}">
         <button>Main Page</button>
     </form>
-    <a th:href="@{/register}">Registration</a>
-    <a th:href="@{/login}">LogIn</a>
-    <a th:href="@{/logout}">LogOut</a>
+    <a th:if="${not isAuthenticated}" th:href="@{/register}">Registration</a>
+    <a th:if="${not isAuthenticated}" th:href="@{/login}">LogIn</a>
+    <a th:if="${isAuthenticated}" th:href="@{/logout}">LogOut</a>
 </nav>
 <h2>List of Books</h2>
 <table>
