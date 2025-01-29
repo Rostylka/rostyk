@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         /*.requestMatchers("/authors").hasAnyRole("Reader", "Administrator")
                         .requestMatchers("/books").hasRole("Administrator")
-                        .requestMatchers("/", "/home").permitAll()*/
+                        .requestMatchers("/", "/home", "/login", "/logout").permitAll()*/
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.successHandler(customAuthenticationSuccessHandler()))

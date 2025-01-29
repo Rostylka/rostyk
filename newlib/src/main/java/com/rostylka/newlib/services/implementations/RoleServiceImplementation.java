@@ -85,6 +85,15 @@ public class RoleServiceImplementation implements RoleService {
         roleRepository.delete(RoleMapper.mapToRole(roleDto));
     }
 
+    /**
+     * Method for getting Role by Role name
+     * @param name - Role name
+     * @return - Role DTO with this name
+     */
+    public RoleDto getByRoleName(String name) {
+        return RoleMapper.mapToRoleDto(roleRepository.getRoleByRoleName(name));
+    }
+
     @Autowired
     public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
         this.userServiceImplementation = userServiceImplementation;

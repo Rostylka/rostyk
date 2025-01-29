@@ -25,7 +25,6 @@ public class UserMapper {
                 user.getPassword(),
                 user.getBirthday(),
                 user.getRole());
-                //user.getBooks());
     }
 
     /**
@@ -42,7 +41,6 @@ public class UserMapper {
                 userDto.getPassword(),
                 userDto.getBirthday(),
                 userDto.getRole());
-                //userDto.getBooks());
     }
 
     /**

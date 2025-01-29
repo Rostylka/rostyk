@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new User</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<body>
+<nav>
+    <form action="/home">
+        <button>home</button>
+    </form>
+</nav>
+<h2>
+    Register
+</h2>
+<form th:method="POST" th:action="@{/register}" th:object="${user}">
+    <table>
+        <tr>
+            <td><label for="name"> Name: </label></td>
+            <td><input type="text" th:field="*{name}" id="name"/>
+                <p th:if="${#fields.hasErrors('name')}"
+                   th:errorclass="text-danger"
+                   th:errors="${user.name}"></p></td>
+        </tr>
+        <tr>
+            <td><label for="surname"> Surname: </label></td>
+            <td><input type="text" th:field="*{surname}" id="surname"/>
+                <p th:if="${#fields.hasErrors('surname')}"
+                    th:errorclass="text-danger"
+                    th:errors="${user.surname}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="email"> e-mail: </label></td>
+            <td><input type="email" th:field="*{email}" id="email"/>
+                <p th:if="${#fields.hasErrors('email')}"
+                   th:errorclass="text-danger"
+                   th:errors="${user.email}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="login"> login: </label></td>
+            <td><input type="text" th:field="*{login}" id="login"/>
+                <p th:if="${#fields.hasErrors('login')}"
+                   th:errorclass="text-danger"
+                   th:errors="${user.login}"></p></td>
+        </tr>
+        <tr>
+            <td><label for="password"> password: </label></td>
+            <td><input type="password" th:field="*{password}" id="password"/>
+                <p th:if="${#fields.hasErrors('password')}"
+                   th:errorclass="text-danger"
+                   th:errors="${user.password}"></p></td></td>
+        </tr>
+        <tr>
+            <td><label for="confirmedpassword"> confirm password: </label></td>
+            <td><input type="password" th:field="*{confirmedPassword}" id="confirmedpassword"/>
+                <p th:if="${#fields.hasErrors('confirmedPassword')}"
+                   th:errorclass="text-danger"
+                   th:errors="${user.confirmedPassword}"></p></td>
+        </tr>
+        <tr>
+            <td><label for="birthday"> birthday: </label></td>
+            <td><input type="date" th:field="*{birthday}" id="birthday"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register"></td>
+            <td><input type="reset" value="Clear"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
