@@ -4,7 +4,6 @@ import com.rostylka.newlib.dto.UserDto;
 import com.rostylka.newlib.dto.UserRegisterDto;
 import com.rostylka.newlib.mappers.RoleMapper;
 import com.rostylka.newlib.mappers.UserRegisterDtoMapper;
-import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.UserRepository;
 import com.rostylka.newlib.services.implementations.RoleServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;

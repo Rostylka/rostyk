@@ -133,7 +133,6 @@ public class UserServiceImplementation implements UserService {
                     true,  // credentialsNonExpired
                     true   // enabled
             );
-
             return customUserDetails;
         }
         throw new UsernameNotFoundException("User not found with login: " + login);
