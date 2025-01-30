@@ -4,14 +4,17 @@ import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
+import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.repositories.BookRepository;
 import com.rostylka.newlib.services.BookService;
-import com.rostylka.newlib.services.BookService;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class BookServiceImplementation implements BookService {
@@ -89,5 +92,60 @@ public class BookServiceImplementation implements BookService {
     @Override
     public void delete(BookDto bookDto) {
         bookRepository.delete(BookMapper.mapToBook(bookDto));
+    }
+
+    /**
+     * Method for finding book by title
+     * @param title Book's title
+     * @return List of Book DTOs by Title
+     */
+    public List<BookDto> getBookByTitle(String title) {
+        Pattern pattern = getPattern(title);
+        List<BookDto> books = readAllBooks();
+        List<BookDto> booksByTitle = new ArrayList<>();
+        for (BookDto book : books) {
+            Matcher matcher = pattern.matcher(book.getTitle().toLowerCase());
+            if (matcher.find()) {
+                booksByTitle.add(book);
+            }
+        }
+        return booksByTitle;
+    }
+
+    /**
+     *
+     * @param name Author's name
+     * @param surname Author's surname
+     * @return List of DTOs by Author
+     */
+    public List<BookDto> getBookByAuthor(String name, String surname) {
+        List<BookDto> booksByAuthor = new LinkedList<>();
+        List<BookDto> books = readAllBooks();
+        Pattern namePattern = getPattern(name);
+        Pattern surnamePattern = getPattern(surname);
+        for (BookDto book : books) {
+            for (Author author : book.getAuthors()) {
+                Matcher nameMatcher = namePattern.matcher(author.getName().toLowerCase());
+                Matcher surnameMatcher = surnamePattern.matcher(author.getSurname().toLowerCase());
+                if ((nameMatcher.find() && surnameMatcher.find()) |
+                        (nameMatcher.find() && surname == null) |
+                        (surnameMatcher.find() && name == null)) {
+                    booksByAuthor.add(book);
+                    break;
+                }
+            }
+        }
+        return booksByAuthor;
+    }
+
+    /**
+     * Method for creating Pattern for searching book by title or by author
+     * @param name
+     * @return pattern for sorting books, authors etc.
+     */
+    private Pattern getPattern(String name) {
+        name = name.toLowerCase().trim().replaceAll("\\s{2,}", " ");
+        Pattern pattern = Pattern.compile(name);
+        return pattern;
     }
 }
