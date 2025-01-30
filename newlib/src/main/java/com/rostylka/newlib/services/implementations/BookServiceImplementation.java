@@ -127,9 +127,9 @@ public class BookServiceImplementation implements BookService {
             for (Author author : book.getAuthors()) {
                 Matcher nameMatcher = namePattern.matcher(author.getName().toLowerCase());
                 Matcher surnameMatcher = surnamePattern.matcher(author.getSurname().toLowerCase());
-                if ((nameMatcher.find() && surnameMatcher.find()) |
-                        (nameMatcher.find() && surname == null) |
-                        (surnameMatcher.find() && name == null)) {
+                if ((nameMatcher.find() && surnameMatcher.find()) ||
+                        (nameMatcher.find() && surname.isBlank()) ||
+                        (surnameMatcher.find() && name.isBlank())) {
                     booksByAuthor.add(book);
                     break;
                 }
@@ -140,12 +140,10 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for creating Pattern for searching book by title or by author
-     * @param name
+     * @param name - name fo pattern
      * @return pattern for sorting books, authors etc.
      */
     private Pattern getPattern(String name) {
-        name = name.toLowerCase().trim().replaceAll("\\s{2,}", " ");
-        Pattern pattern = Pattern.compile(name);
-        return pattern;
+        return Pattern.compile(name.toLowerCase().trim().replaceAll("\\s{2,}", " "));
     }
 }
