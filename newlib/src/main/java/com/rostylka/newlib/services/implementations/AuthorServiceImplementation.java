@@ -32,9 +32,12 @@ public class AuthorServiceImplementation implements AuthorService {
      */
     @Override
     public AuthorDto createAuthor(AuthorDto authorDto) {
-        Author author = AuthorMapper.mapToAuthor(authorDto);
-        Author createdAuthor = authorRepository.save(author);
-        return AuthorMapper.mapToAuthorDto(createdAuthor);
+        if (checkIfAuthorPresent(authorDto)) {
+            Author author = AuthorMapper.mapToAuthor(authorDto);
+            Author createdAuthor = authorRepository.save(author);
+            return AuthorMapper.mapToAuthorDto(createdAuthor);
+        }
+        return getAuthorByNameAndSurname(authorDto.getName(), authorDto.getSurname());
     }
 
     /**
@@ -80,5 +83,25 @@ public class AuthorServiceImplementation implements AuthorService {
             if (books.isEmpty()) {
             authorRepository.delete(AuthorMapper.mapToAuthor(authorDto));
             }
+    }
+
+    /**
+     * Method for getting Author by name and surname
+     * @param name - Author's name
+     * @param surname - Author's surname
+     * @return Author object
+     */
+    public AuthorDto getAuthorByNameAndSurname(String name, String surname) {
+        return AuthorMapper.mapToAuthorDto(authorRepository.getAuthorByNameAndSurname(name, surname));
+    }
+
+    /**
+     * Method for checking if author is present in Database
+     * @param authorDto - Author DTO
+     * @return true if Author is present in Data Base
+     */
+    public boolean checkIfAuthorPresent(AuthorDto authorDto) {
+        List<AuthorDto> authors  = readAllAuthors();
+        return authors.contains(authorDto);
     }
 }
