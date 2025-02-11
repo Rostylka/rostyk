@@ -159,7 +159,7 @@ public class BookServiceImplementation implements BookService {
     public boolean checkIfBookPresent(BookDto bookDto) {
         List<BookDto> books  = readAllBooks();
         for (BookDto book: books) {
-            if (book.getTitle().equals(bookDto.getTitle()) && bookDto.getAuthors().contains(book.getAuthors().get(0))) {
+            if (book.getTitle().equals(bookDto.getTitle()) && book.getAuthors().contains(bookDto.getAuthors().get(0))) {
                 return true;
             }
         }
