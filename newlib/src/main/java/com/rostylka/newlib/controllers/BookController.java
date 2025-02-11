@@ -2,9 +2,7 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
-import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")

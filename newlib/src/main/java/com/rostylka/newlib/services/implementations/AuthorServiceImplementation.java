@@ -15,7 +15,7 @@ import java.util.Set;
 public class AuthorServiceImplementation implements AuthorService {
 
 
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     /**
      * Constructor

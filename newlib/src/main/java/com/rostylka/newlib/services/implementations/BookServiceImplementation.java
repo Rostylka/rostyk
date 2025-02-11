@@ -20,16 +20,14 @@ import java.util.regex.Pattern;
 public class BookServiceImplementation implements BookService {
 
 
-    private final AuthorServiceImplementation authorServiceImplementation;
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     /**
      * Constructor
      * @param bookRepository - Book Repository
      */
-    public BookServiceImplementation(BookRepository bookRepository, AuthorServiceImplementation authorServiceImplementation){
+    public BookServiceImplementation(BookRepository bookRepository){
         this.bookRepository = bookRepository;
-        this.authorServiceImplementation = authorServiceImplementation;
     }
 
     /**
