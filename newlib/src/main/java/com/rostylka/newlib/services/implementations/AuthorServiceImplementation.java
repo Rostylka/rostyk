@@ -32,7 +32,7 @@ public class AuthorServiceImplementation implements AuthorService {
      */
     @Override
     public AuthorDto createAuthor(AuthorDto authorDto) {
-        if (checkIfAuthorPresent(authorDto)) {
+        if (!checkIfAuthorPresent(authorDto)) {
             Author author = AuthorMapper.mapToAuthor(authorDto);
             Author createdAuthor = authorRepository.save(author);
             return AuthorMapper.mapToAuthorDto(createdAuthor);
@@ -101,7 +101,12 @@ public class AuthorServiceImplementation implements AuthorService {
      * @return true if Author is present in Data Base
      */
     public boolean checkIfAuthorPresent(AuthorDto authorDto) {
-        List<AuthorDto> authors  = readAllAuthors();
-        return authors.contains(authorDto);
+        for(AuthorDto author: readAllAuthors()) {
+            if (author.getName().equals(authorDto.getName()) &&
+            author.getSurname().equals(authorDto.getSurname())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

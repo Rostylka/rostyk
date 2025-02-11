@@ -20,14 +20,16 @@ import java.util.regex.Pattern;
 public class BookServiceImplementation implements BookService {
 
 
+    private final AuthorServiceImplementation authorServiceImplementation;
     private BookRepository bookRepository;
 
     /**
      * Constructor
      * @param bookRepository - Book Repository
      */
-    public BookServiceImplementation(BookRepository bookRepository){
+    public BookServiceImplementation(BookRepository bookRepository, AuthorServiceImplementation authorServiceImplementation){
         this.bookRepository = bookRepository;
+        this.authorServiceImplementation = authorServiceImplementation;
     }
 
     /**
@@ -37,9 +39,11 @@ public class BookServiceImplementation implements BookService {
      */
     @Override
     public BookDto createBook(BookDto bookDto) {
-        Book book = BookMapper.mapToBook(bookDto);
-        Book createdBook = bookRepository.save(book);
-        return BookMapper.mapToBookDto(createdBook);
+        if (!checkIfBookPresent(bookDto)) {
+            Book createdBook = bookRepository.save(BookMapper.mapToBook(bookDto));
+            return BookMapper.mapToBookDto(createdBook);
+        }
+        return getBookByAuthorsAndTitle(bookDto.getAuthors(), bookDto.getTitle());
     }
 
     /**
@@ -145,5 +149,30 @@ public class BookServiceImplementation implements BookService {
      */
     private Pattern getPattern(String name) {
         return Pattern.compile(name.toLowerCase().trim().replaceAll("\\s{2,}", " "));
+    }
+
+    /**
+     * Method for checking if Book is present in Database
+     * @param bookDto - Book DTO
+     * @return true if Book is present in Data Base
+     */
+    public boolean checkIfBookPresent(BookDto bookDto) {
+        List<BookDto> books  = readAllBooks();
+        for (BookDto book: books) {
+            if (book.getTitle().equals(bookDto.getTitle()) && bookDto.getAuthors().contains(book.getAuthors().get(0))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method for getting Book by Authors and Title
+     * @param authors - List of Authors
+     * @param title - title of the Book
+     * @return Book DTO with these Authors and Title
+     */
+    public BookDto getBookByAuthorsAndTitle(List <Author> authors, String title) {
+        return BookMapper.mapToBookDto(bookRepository.getBookByAuthorsAndTitle(authors, title));
     }
 }

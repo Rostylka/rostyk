@@ -76,7 +76,9 @@ public class UserServiceImplementation implements UserService {
         updatedUser.setSurname(userDto.getSurname());
         updatedUser.setEmail(userDto.getEmail());
         updatedUser.setLogin(userDto.getLogin());
-        updatedUser.setPassword(userDto.getPassword());
+        if(!userDto.getPassword().isEmpty()) {
+            updatedUser.setPassword(userDto.getPassword());
+        }
         updatedUser.setBirthday(userDto.getBirthday());
         updatedUser.setRole(userDto.getRole());
         return UserMapper.mapToUserDto(userRepository.save(updatedUser));

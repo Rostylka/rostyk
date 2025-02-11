@@ -2,6 +2,7 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
+import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,17 +49,19 @@ public class BookController {
      * GET form
      * CREATE Book
      *
-     * @param author - Author
-     * @param book   - Book
+     * @param authorDto - Author DTO
+     * @param bookDto   - Book DTO
      * @param model  - Model
      * @return list Books
      */
     @PostMapping("/create")
-    public String createBook(@ModelAttribute("author") Author author, @ModelAttribute("book") Book book,
+    public String createBook(@ModelAttribute("author") AuthorDto authorDto,
+                             @ModelAttribute("book") BookDto bookDto,
                              Model model) {
-        List<Author> authors = book.getAuthors();
-        authors.add(author);
-        bookServiceImplementation.createBook(BookMapper.mapToBookDto(book));
+        authorDto = authorServiceImplementation.createAuthor(authorDto);
+        bookDto.setAuthors(new ArrayList<>());
+        bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
+        bookServiceImplementation.createBook(bookDto);
         return "redirect:/books";
     }
 
