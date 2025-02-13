@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class RoleServiceImplementation implements RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
     private UserRepository userRepository;
     private UserServiceImplementation userServiceImplementation;
 
