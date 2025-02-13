@@ -35,9 +35,14 @@ public class RoleServiceImplementation implements RoleService {
      */
     @Override
     public RoleDto createRole(RoleDto roleDto) {
+        if(!checkIfRolePresent(roleDto)) {
         Role role = RoleMapper.mapToRole(roleDto);
         Role createdRole = roleRepository.save(role);
         return RoleMapper.mapToRoleDto(createdRole);
+        }
+        else {
+            return getByRoleName(roleDto.getRoleName());
+        }
     }
 
     /**
@@ -94,6 +99,22 @@ public class RoleServiceImplementation implements RoleService {
         return RoleMapper.mapToRoleDto(roleRepository.getRoleByRoleName(name));
     }
 
+    /**
+     * Method for checking if role is present in Database
+     * @param roleDto - Role DTO
+     * @return true if Role is present in Data Base
+     */
+    public boolean checkIfRolePresent(RoleDto roleDto) {
+        for(RoleDto role: readAllRoles()) {
+            if (role.equals(roleDto)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     @Autowired
     public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
         this.userServiceImplementation = userServiceImplementation;
@@ -103,4 +124,6 @@ public class RoleServiceImplementation implements RoleService {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
 }
