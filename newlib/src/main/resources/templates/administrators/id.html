@@ -20,6 +20,14 @@
     <form action="/roles">
         <button>All roles</button>
     </form>
+    <form th:method="GET" th:action="@{/readers/{userId}
+            (userId = ${user.getId()})}">
+        <button >To Reader</button>
+    </form>
+    <form th:method="GET" th:action="@{/librarians/{userId}
+            (userId = ${user.getId()})}">
+        <button >To Librarian</button>
+    </form>
     <form th:method="GET" th:action="@{/librarians/{userId}/readerlogs
             (userId = ${user.getId()})}">
         <button >Reader Logs</button>

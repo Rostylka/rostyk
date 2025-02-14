@@ -16,6 +16,10 @@
             (userId = ${user.getId()})}">
         <button >BookLogs</button>
     </form>
+    <form th:method="GET" th:action="@{/readers/{userId}
+            (userId = ${user.getId()})}">
+        <button >To Reader</button>
+    </form>
     <form th:method="GET" th:action="@{/librarians/{userId}/register
             (userId = ${user.getId()})}">
         <button >Register</button>
