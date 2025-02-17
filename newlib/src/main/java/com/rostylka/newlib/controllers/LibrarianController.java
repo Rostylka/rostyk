@@ -127,7 +127,7 @@ public class LibrarianController {
     @GetMapping("/{id}/register")
     @PreAuthorize("#id == authentication.principal.id")
     public String registerBook(@PathVariable("id") int id, Model model) {
-        model.addAttribute("books", bookServiceImplementation.readAllBooks());
+        model.addAttribute("books", bookServiceImplementation.findUnregisteredBooks());
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("link", userServiceImplementation.createLink());
         return "librarians/register";

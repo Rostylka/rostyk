@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Log</title>
+    <link rel="stylesheet" href="/styles/newstyles.css">
+</head>
+<body>
+<nav>
+    <form th:action="${link}">
+        <button>Main Page</button>
+    </form>
+    <form action="/home">
+        <button>home</button>
+    </form>
+    <a href="/logout">LogOut</a>
+</nav>
+<h2> View Book</h2>
+<form th:method="POST" th:action="@{/booklogs/{bookLogId}/update
+    (bookLogId = ${bookLog.getId()})}">
+    <table>
+        <tr>
+            <td><label for="title"> Title: </label></td>
+            <td><input type="text" th:value="${bookLog.getBook().getTitle()}" id="title" disabled/></td>
+        </tr>
+        <tr>
+            <td><label for="authors"> Authors: </label></td>
+            <td><input th:each="author:${bookLog.getBook().getAuthors()}" type="text"
+                       th:value="${author.getName()} + ' ' +${author.getSurname()}" id="authors" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="totalnumber"> Total Number: </label></td>
+            <td><input type="text" th:value="${bookLog.getTotalNumber()}" th:field="${bookLog.totalNumber}"
+                       id="totalnumber"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Update"></td>
+            <td><input type="reset" value="Clear"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

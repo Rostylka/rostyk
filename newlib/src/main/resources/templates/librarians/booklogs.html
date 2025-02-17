@@ -46,8 +46,8 @@
         <td th:text="${booklog.getTotalNumber()}"> totalnumber </td>
         <td th:text="${booklog.getReadingNumber()}"> readingnumber </td>
         <td>
-            <form th:method="GET" class="btn btn-success" th:action="@{/home}">
-                <button>Confirm</button>
+            <form th:method="GET" class="btn btn-success" th:action="@{/booklogs/{id}/update (id = ${booklog.getId()})}">
+                <button>Update</button>
             </form>
         </td>
     </tr>
