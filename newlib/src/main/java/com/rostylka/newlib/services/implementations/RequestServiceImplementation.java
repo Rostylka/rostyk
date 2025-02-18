@@ -1,8 +1,12 @@
 package com.rostylka.newlib.services.implementations;
 
+import com.rostylka.newlib.dto.BookDto;
 import com.rostylka.newlib.dto.RequestDto;
+import com.rostylka.newlib.dto.UserDto;
 import com.rostylka.newlib.mappers.RequestMapper;
+import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.models.Request;
+import com.rostylka.newlib.models.User;
 import com.rostylka.newlib.repositories.RequestRepository;
 import com.rostylka.newlib.services.RequestService;
 import org.springframework.stereotype.Service;
@@ -30,9 +34,11 @@ public class RequestServiceImplementation implements RequestService {
      */
     @Override
     public RequestDto createRequest(RequestDto requestDto) {
-        Request request = RequestMapper.mapToRequest(requestDto);
-        Request createdRequest = requestRepository.save(request);
-        return RequestMapper.mapToRequestDto(createdRequest);
+        if (!checkIfRequestPresent(requestDto)) {
+            Request createdRequest = requestRepository.save(RequestMapper.mapToRequest(requestDto));
+            return RequestMapper.mapToRequestDto(createdRequest);
+        }
+        return getRequestByUserAndBook(requestDto.getUser(), requestDto.getBook());
     }
 
     /**
@@ -74,5 +80,30 @@ public class RequestServiceImplementation implements RequestService {
     @Override
     public void delete(RequestDto requestDto) {
         requestRepository.delete(RequestMapper.mapToRequest(requestDto));
+    }
+
+    /**
+     * Method for getting Request by User and Book
+     * @param user - User
+     * @param book - Book
+     * @return - Request DTO by User and Book
+     */
+    public RequestDto getRequestByUserAndBook(User user, Book book) {
+        return RequestMapper.mapToRequestDto(requestRepository.getRequestByUserAndBook(user, book));
+    }
+
+    /**
+     * Method for checking if Request is present in Database
+     * @param requestDto - Request DTO
+     * @return true if Request is present in Data Base
+     */
+    public boolean checkIfRequestPresent(RequestDto requestDto) {
+        List<RequestDto> requests  = readAllRequests();
+        for (RequestDto request: requests) {
+            if (request.equals(requestDto)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,7 +1,9 @@
 package com.rostylka.newlib.services.implementations;
 
+import com.rostylka.newlib.dto.BookDto;
 import com.rostylka.newlib.dto.BookLogDto;
 import com.rostylka.newlib.mappers.BookLogMapper;
+import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.models.BookLog;
 import com.rostylka.newlib.repositories.BookLogRepository;
@@ -81,8 +83,34 @@ public class BookLogServiceImplementation implements BookLogService {
     /**
      * Method for finding Book Log by Book
      * @param book - Book
+     * return BookLog DTO
      */
     public BookLogDto findBookLogByBook(Book book){
-        return BookLogMapper.mapToBookLogDto(bookLogRepository.findBookLogByBook(book));
+        try {
+            return BookLogMapper.mapToBookLogDto(bookLogRepository.findBookLogByBook(book));
+        } catch (Exception e) {
+            return null;
+        }
     }
+
+    /**
+     * Method: is book available for reader
+     * @param bookDto - Book DTO
+     * @return is Book Available
+     */
+    public boolean isBookAvailable(BookDto bookDto) {
+        BookLogDto bookLogDto = findBookLogByBook(BookMapper.mapToBook(bookDto));
+        return (bookLogDto != null) && (bookLogDto.getTotalNumber() - bookLogDto.getReadingNumber() > 0);
+    }
+
+    /**
+     * Method: is book available for reader
+     * @param book - Book
+     * @return is Book Available
+     */
+    public boolean isBookAvailable(Book book) {
+        BookLogDto bookLogDto = findBookLogByBook(book);
+        return (bookLogDto != null) && (bookLogDto.getTotalNumber() - bookLogDto.getReadingNumber() > 0);
+    }
+
 }

@@ -39,6 +39,7 @@ public class LibrarianController {
         model.addAttribute("user", userServiceImplementation.readUserById(id));
         model.addAttribute("requests", requestServiceImplementation.readAllRequests());
         model.addAttribute("link", userServiceImplementation.createLink());
+        model.addAttribute("bookLogService", bookLogServiceImplementation);
         return "librarians/id";
     }
 

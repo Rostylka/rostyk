@@ -190,6 +190,18 @@ public class BookServiceImplementation implements BookService {
         return readAllBooks().stream().filter(bookDto -> !loggedBooks.contains(bookDto)).toList();
     }
 
+    /**
+     * Method for getting String availability of the Book
+     * @param bookDto - Book DTO
+     * @return "available" or "unavailable"
+     */
+    public String getAvailabilityOfBook(BookDto bookDto) {
+        if (bookLogServiceImplementation.isBookAvailable(bookDto)) {
+            return "available";
+        }
+        else return "unavailable";
+    }
+
     @Autowired
     public void setBookLogServiceImplementation(BookLogServiceImplementation bookLogServiceImplementation) {
         this.bookLogServiceImplementation = bookLogServiceImplementation;

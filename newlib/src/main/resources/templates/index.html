@@ -65,6 +65,7 @@
         <th>ID</th>
         <th>Book</th>
         <th>Authors</th>
+        <th>is Available</th>
         <th>View Info</th>
     </tr>
     </thead>
@@ -79,6 +80,7 @@
                 </li>
             </ul>
         </td>
+        <td th:text="${bookService.getAvailabilityOfBook(book)}">availability</td>
         <td>
             <form th:method="GET" class="btn btn-success" th:action="@{/books/{id} (id = ${book.getId()})}">
                 <button>Goto</button>

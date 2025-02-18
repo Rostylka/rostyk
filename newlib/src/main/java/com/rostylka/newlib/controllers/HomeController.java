@@ -24,6 +24,7 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("books", bookServiceImplementation.readAllBooks());
         model.addAttribute("link", userServiceImplementation.createLink());
+        model.addAttribute("bookService", bookServiceImplementation);
         model.addAttribute("isAuthenticated", userServiceImplementation.getUserDetail()!=null);
         return "index";
     }

@@ -61,7 +61,7 @@
         <td>
             <form th:method="POST" class="btn btn-success" th:action="@{/librarians/{userId}/confirm/{requestId}
             (userId = ${user.getId()}, requestId = ${request.getId()})}">
-                <button>Confirm</button>
+                <button th:if="${bookLogService.isBookAvailable(request.getBook())}">Confirm</button>
             </form>
         </td>
         <td>
