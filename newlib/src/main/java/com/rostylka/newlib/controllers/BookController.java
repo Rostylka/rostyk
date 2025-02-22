@@ -2,10 +2,13 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
+import com.rostylka.newlib.dto.webdto.BookResponseDto;
+import com.rostylka.newlib.dto.webdto.BookWebDto;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
+import com.rostylka.newlib.services.implementations.BookWebServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -23,6 +27,7 @@ public class BookController {
     private UserServiceImplementation userServiceImplementation;
     private BookServiceImplementation bookServiceImplementation;
     private AuthorServiceImplementation authorServiceImplementation;
+    private BookWebServiceImplementation bookWebServiceImplementation;
     private BookDto bookDto;
 
 
@@ -58,6 +63,8 @@ public class BookController {
         authorDto = authorServiceImplementation.createAuthor(authorDto);
         bookDto.setAuthors(new ArrayList<>());
         bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
+        //TODO
+        List<BookWebDto> books = bookWebServiceImplementation.getBooks(bookDto);
         bookServiceImplementation.createBook(bookDto);
         return "redirect:/books";
     }
@@ -177,5 +184,10 @@ public class BookController {
     @Autowired
     public void setUserServiceImplementation(UserServiceImplementation userServiceImplementation) {
         this.userServiceImplementation = userServiceImplementation;
+    }
+
+    @Autowired
+    public void setBookWebServiceImplementation(BookWebServiceImplementation bookWebServiceImplementation) {
+        this.bookWebServiceImplementation = bookWebServiceImplementation;
     }
 }
