@@ -18,7 +18,7 @@ public class BookWebServiceImplementation implements BookWebService {
 
     @Override
     public List<BookWebDto> getBooks(BookDto bookDto) {
-        String uri = "/books/?search=" + bookDto.getTitle().replace(" ", " ")
+        String uri = "/books/?search=" + bookDto.getTitle()
                 + " " + bookDto.getAuthors().get(0).getName()
                 + " " + bookDto.getAuthors().get(0).getSurname();
         String data = webClient.get()

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 //TODO
 @Getter
@@ -17,7 +18,7 @@ public class BookWebDto {
     private String title;
     private List<AuthorWebDto> authors;
     private List<String> summaries;
-    private Formats formats;
+    private Map<String, String> formats;
 
 
 }
