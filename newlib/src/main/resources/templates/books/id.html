@@ -17,7 +17,9 @@
     <form action="/home">
         <button>Home</button>
     </form>
-    <a href="/logout">LogOut</a>
+    <a th:if="${not isAuthenticated}" th:href="@{/register}">Registration</a>
+    <a th:if="${not isAuthenticated}" th:href="@{/login}">LogIn</a>
+    <a th:if="${isAuthenticated}" th:href="@{/logout}">LogOut</a>
 </nav>
 <h2> View Book</h2>
 <form>
@@ -32,12 +34,22 @@
                        th:value="${author.getName()} + ' ' +${author.getSurname()}" id="authors" disabled/>
             </td>
         </tr>
+        <tr>
+            <td><label for="summary"> Summary: </label></td>
+            <td><textarea id="summary" name="summary" rows="10" cols="50" style="font-size: 16px;" disabled>
+                [[${book.getSummary()}]]
+            </textarea></td>
+        </tr>
+        <tr>
+            <td><label> Cover: </label></td>
+            <td><img th:src="${book.getCover()}" alt="no images" class="cover-img"></td>
+        </tr>
     </table>
 </form>
-<form th:object="${book}" th:method="GET" th:action="@{/books/update/{id} (id = ${book.getId()})}">
+<form th:if="${isPermitted}" th:object="${book}" th:method="GET" th:action="@{/books/update/{id} (id = ${book.getId()})}">
     <button>Update</button>
 </form>
-<form th:object="${book}" th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
+<form th:if="${isPermitted}" th:object="${book}" th:method="POST" th:action="@{/books/delete/{id} (id = ${book.getId()})}">
     <button class="del">Delete</button>
 </form>
 </body>

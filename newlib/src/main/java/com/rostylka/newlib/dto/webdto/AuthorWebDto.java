@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//TODO
+/**
+ * Class for transferring Author Data from API
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +15,6 @@ import lombok.Setter;
 public class AuthorWebDto {
 
     private String name;
-    private int birth_year;
-    private int death_year;
+    private String birth_year;
+    private String death_year;
 }

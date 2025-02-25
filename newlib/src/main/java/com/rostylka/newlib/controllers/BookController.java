@@ -2,9 +2,10 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.webdto.BookResponseDto;
 import com.rostylka.newlib.dto.webdto.BookWebDto;
+import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
+import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
@@ -21,7 +22,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
-@PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
 public class BookController {
 
     private UserServiceImplementation userServiceImplementation;
@@ -40,6 +40,7 @@ public class BookController {
      * @param model  - Model
      * @return list Books
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @GetMapping("/new")
     public String newBook(@ModelAttribute("author") AuthorDto author, @ModelAttribute("book") Book book,
                           Model model) {
@@ -48,7 +49,7 @@ public class BookController {
     }
 
     /**
-     * GET form
+     * POST
      * CREATE Book
      *
      * @param authorDto - Author DTO
@@ -56,6 +57,44 @@ public class BookController {
      * @param model  - Model
      * @return list Books
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
+    @PostMapping("/create")
+    public String createBook(@ModelAttribute("author") AuthorDto authorDto,
+                                 @ModelAttribute("book") BookDto bookDto,
+                             Model model) {
+        bookDto.setAuthors(new ArrayList<>());
+        bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
+        List<BookWebDto> books = bookWebServiceImplementation.getBooks(bookDto);
+        List<BookDto> dtoBooks = BookMapper.mapFromBookWebDtoListToBookDtoList(books);
+        if (!dtoBooks.isEmpty()) {
+            for (BookDto book: dtoBooks){
+                List<Author> authors = book.getAuthors();
+                book.setAuthors(new ArrayList<>());
+                for(Author author: authors) {
+                    AuthorDto newAuthor = authorServiceImplementation.createAuthor(AuthorMapper.mapToAuthorDto(author));
+                    book = bookServiceImplementation.addAuthor(book, newAuthor);
+                }
+                bookServiceImplementation.createBook(book);
+            }
+        }
+        else {                                   ;
+            authorDto = authorServiceImplementation.createAuthor(authorDto);
+            bookDto.setAuthors(new ArrayList<>());
+            bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
+            bookServiceImplementation.createBook(bookDto);
+        }
+        return "redirect:/books";
+    }
+
+  /*  *//**
+     * POST
+     * CREATE Book
+     *
+     * @param authorDto - Author DTO
+     * @param bookDto   - Book DTO
+     * @param model  - Model
+     * @return list Books
+     *//*
     @PostMapping("/create")
     public String createBook(@ModelAttribute("author") AuthorDto authorDto,
                              @ModelAttribute("book") BookDto bookDto,
@@ -63,11 +102,11 @@ public class BookController {
         authorDto = authorServiceImplementation.createAuthor(authorDto);
         bookDto.setAuthors(new ArrayList<>());
         bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
-        //TODO
-        List<BookWebDto> books = bookWebServiceImplementation.getBooks(bookDto);
         bookServiceImplementation.createBook(bookDto);
         return "redirect:/books";
-    }
+    }*/
+
+
 
     /**
      * READ ALL books
@@ -80,6 +119,7 @@ public class BookController {
         model.addAttribute("books",
                 bookServiceImplementation.readAllBooks());
         model.addAttribute("link", userServiceImplementation.createLink());
+        model.addAttribute("isAuthenticated", userServiceImplementation.getUserDetail()!=null);
         return "books/list";
     }
 
@@ -93,6 +133,11 @@ public class BookController {
     public String readBookById(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookServiceImplementation.readBookById(id));
         model.addAttribute("link", userServiceImplementation.createLink());
+        model.addAttribute("isAuthenticated", userServiceImplementation.getUserDetail()!=null);
+        model.addAttribute("isPermitted",
+                userServiceImplementation.getUserDetail()!=null && (userServiceImplementation.getUserDetail().getRole().equals("Librarian") ||
+                        userServiceImplementation.getUserDetail().getRole().equals("Administrator"))
+        );
         return "books/id";
     }
 
@@ -103,6 +148,7 @@ public class BookController {
      * @param model - Model
      * @return form for Updating Book
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @GetMapping("update/{id}")
     public String readBookForUpdate(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto,
                                     Model model) {
@@ -118,10 +164,13 @@ public class BookController {
      * @param bookDto - Book DTO
      * @return list Books
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @PostMapping("update/{id}")
     public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") BookDto bookDto) {
         BookDto updatedBook = bookServiceImplementation.readBookById(id);
         updatedBook.setTitle(bookDto.getTitle());
+        updatedBook.setSummary(bookDto.getSummary());
+        updatedBook.setCover(bookDto.getCover());
         bookServiceImplementation.updateBook(updatedBook);
         return "redirect:/books";
     }
@@ -133,6 +182,7 @@ public class BookController {
      * @param authorDto - Author
      * @return Updated Book
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @PostMapping("update/{id}/add/author")
     public String addAuthorToBook(@PathVariable("id") int id, @ModelAttribute("author") AuthorDto authorDto) {
         authorDto.setId(0); //TODO Try to remove this
@@ -150,6 +200,7 @@ public class BookController {
      * @param authorId - Author ID
      * @return Updated Book
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @GetMapping("/update/{id}/delete/author/{authorId}")
     public String deleteAuthorFromBook(@PathVariable("id") int id, @PathVariable("authorId") int authorId) {
         bookDto = bookServiceImplementation.readBookById(id);
@@ -165,6 +216,7 @@ public class BookController {
      * @param book - Book
      * @return list Books
      */
+    @PreAuthorize("hasAuthority('ROLE_Administrator') || hasAuthority('ROLE_Librarian')")
     @PostMapping("delete/{id}")
     public String deleteBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
         bookServiceImplementation.delete(BookMapper.mapToBookDto(book));

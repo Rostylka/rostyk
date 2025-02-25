@@ -2,6 +2,7 @@ package com.rostylka.newlib.mappers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.AuthorDto;
+import com.rostylka.newlib.dto.webdto.AuthorWebDto;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Author;
 
@@ -58,6 +59,23 @@ public class AuthorMapper {
         List<Author> authors = new ArrayList<>();
         for (AuthorDto dtoAuthor : dtoAuthors) {
             authors.add(AuthorMapper.mapToAuthor(dtoAuthor));
+        }
+        return authors;
+    }
+
+    /**
+     * Method for transforming List of AuthorWeb DTO to List of Authors
+     * @param webAuthors - List of Authors Web DTOs from API
+     * @return List of Authors
+     */
+    public static List<Author> mapFromAuthorWebDtoToAuthorList(List<AuthorWebDto> webAuthors){
+        List<Author> authors = new ArrayList<>();
+        for (AuthorWebDto webAuthor : webAuthors) {
+            List<String> names = List.of(webAuthor.getName().split(", "));
+            Author author = new Author();
+            author.setName(names.get(1));
+            author.setSurname(names.get(0));
+            authors.add(author);
         }
         return authors;
     }

@@ -8,7 +8,9 @@ import lombok.Setter;
 import java.util.List;
 
 
-//TODO
+/**
+ * Class for transferring Book Data from API
+ */
 @Getter
 @Setter
 @NoArgsConstructor

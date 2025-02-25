@@ -42,11 +42,12 @@ public class BookServiceImplementation implements BookService {
      */
     @Override
     public BookDto createBook(BookDto bookDto) {
-        if (!checkIfBookPresent(bookDto)) {
+        BookDto createdBookDto = checkIfBookPresent(bookDto);
+        if (checkIfBookPresent(bookDto) == null) {
             Book createdBook = bookRepository.save(BookMapper.mapToBook(bookDto));
             return BookMapper.mapToBookDto(createdBook);
         }
-        return getBookByAuthorsAndTitle(bookDto.getAuthors(), bookDto.getTitle());
+        return createdBookDto;
     }
 
     /**
@@ -78,6 +79,8 @@ public class BookServiceImplementation implements BookService {
         Book updatedBook = bookRepository.getReferenceById(bookDto.getId());
         updatedBook.setTitle(bookDto.getTitle());
         updatedBook.setAuthors(bookDto.getAuthors());
+        updatedBook.setSummary(bookDto.getSummary());
+        updatedBook.setCover(bookDto.getCover());
         return BookMapper.mapToBookDto(bookRepository.save(updatedBook));
     }
 
@@ -157,16 +160,16 @@ public class BookServiceImplementation implements BookService {
     /**
      * Method for checking if Book is present in Database
      * @param bookDto - Book DTO
-     * @return true if Book is present in Data Base
+     * @return Book DTO if Book is present in Data Base and null if not
      */
-    public boolean checkIfBookPresent(BookDto bookDto) {
+    public BookDto checkIfBookPresent(BookDto bookDto) {
         List<BookDto> books  = readAllBooks();
         for (BookDto book: books) {
             if (book.getTitle().equals(bookDto.getTitle()) && book.getAuthors().contains(bookDto.getAuthors().get(0))) {
-                return true;
+                return book;
             }
         }
-        return false;
+        return null;
     }
 
     /**

@@ -30,6 +30,12 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "id_author"))
     private List<Author> authors = new ArrayList<>();
 
+    @Column(name = "summary", nullable = true, length = 2000)
+    private String summary;
+
+    @Column(name = "cover", nullable = true)
+    private String cover;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

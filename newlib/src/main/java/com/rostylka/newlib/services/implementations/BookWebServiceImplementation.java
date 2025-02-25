@@ -7,15 +7,21 @@ import com.rostylka.newlib.services.BookWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * Class for getting Books from https://gutendex.com/ public API
+ */
 @Service
 public class BookWebServiceImplementation implements BookWebService {
     private WebClient webClient;
 
+    /**
+     * Method for getting info of the Book from API
+     * @param bookDto
+     * @return
+     */
     @Override
     public List<BookWebDto> getBooks(BookDto bookDto) {
         String uri = "/books/?search=" + bookDto.getTitle()

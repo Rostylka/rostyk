@@ -38,6 +38,16 @@
             </td>
         </tr>
         <tr>
+            <td><label for="summary"> Summary: </label></td>
+            <td><textarea id="summary" name="summary" th:field="*{summary}" rows="10" cols="50" style="font-size: 16px;">
+                [[${book.getSummary()}]]
+            </textarea></td>
+        </tr>
+        <tr>
+            <td><label for="cover"> Cover: </label></td>
+            <td><input type="text" th:field="*{cover}" th:value="${book.getCover()}" id="cover"/></td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Update"></td>
             <td><input type="reset" value="Clear"></td>
         </tr>

@@ -41,6 +41,7 @@ public class HomeController {
         model.addAttribute("books", bookServiceImplementation.getBookByTitle(title));
         model.addAttribute("link", userServiceImplementation.createLink());
         model.addAttribute("isAuthenticated", userServiceImplementation.getUserDetail()!=null);
+        model.addAttribute("bookService", bookServiceImplementation);
         return "index";
     }
 
@@ -58,6 +59,7 @@ public class HomeController {
         model.addAttribute("books", bookServiceImplementation.getBookByAuthor(name, surname));
         model.addAttribute("link", userServiceImplementation.createLink());
         model.addAttribute("isAuthenticated", userServiceImplementation.getUserDetail()!=null);
+        model.addAttribute("bookService", bookServiceImplementation);
         return "index";
     }
 

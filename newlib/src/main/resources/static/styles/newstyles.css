@@ -136,3 +136,6 @@ nav button {
 .text-danger {
     color: #ff4b4b;
 }
+.cover-img {width: 200px;
+    height: 300px;
+    object-fit: cover;}

@@ -1,6 +1,7 @@
 package com.rostylka.newlib.mappers;
 
 import com.rostylka.newlib.dto.BookDto;
+import com.rostylka.newlib.dto.webdto.BookWebDto;
 import com.rostylka.newlib.models.Book;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class BookMapper {
     public static BookDto mapToBookDto(Book book) {
         return new BookDto(book.getId(),
                 book.getTitle(),
-                book.getAuthors());
+                book.getAuthors(), book.getSummary(), book.getCover());
                 //book.getUsers());
     }
 
@@ -30,8 +31,9 @@ public class BookMapper {
     public static Book mapToBook(BookDto bookDto) {
         return new Book(bookDto.getId(),
                 bookDto.getTitle(),
-                bookDto.getAuthors());
-                //bookDto.getUsers());
+                bookDto.getAuthors(),
+                bookDto.getSummary(),
+                bookDto.getCover());
     }
 
     /**
@@ -56,6 +58,32 @@ public class BookMapper {
         List<Book> books = new ArrayList<>();
         for (BookDto dtoBook : dtoBooks) {
             books.add(BookMapper.mapToBook(dtoBook));
+        }
+        return books;
+    }
+
+    /**
+     * Method for transforming BookWed DTO to Book DTO
+     * @param bookWebDto - BookWeb DTO
+     * @return Book DTO
+     */
+    public static BookDto mapFromBookWebDtoToBookDto(BookWebDto bookWebDto) {
+        return new BookDto(0,
+                (bookWebDto.getTitle() != null)?bookWebDto.getTitle():null,
+                AuthorMapper.mapFromAuthorWebDtoToAuthorList(bookWebDto.getAuthors()),
+                (!bookWebDto.getSummaries().isEmpty())?bookWebDto.getSummaries().get(0):null,
+                (bookWebDto.getFormats().get("image/jpeg") != null)?bookWebDto.getFormats().get("image/jpeg"):null);
+    }
+
+    /**
+     * Method for transforming BookWeb DTO list into BookDto list
+     * @param dtoWebBooks list of Books
+     * @return list of Book DTOs
+     */
+    public static List<BookDto> mapFromBookWebDtoListToBookDtoList(List<BookWebDto> dtoWebBooks) {
+        List<BookDto> books = new ArrayList<>();
+        for (BookWebDto dtoWebBook : dtoWebBooks) {
+            books.add(BookMapper.mapFromBookWebDtoToBookDto(dtoWebBook));
         }
         return books;
     }

@@ -8,7 +8,9 @@ import lombok.Setter;
 import java.util.List;
 import java.util.Map;
 
-//TODO
+/**
+ * Book Data form API DTO class
+ */
 @Getter
 @Setter
 @NoArgsConstructor
