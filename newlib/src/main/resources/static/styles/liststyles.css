@@ -3,6 +3,10 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    background-image: url('https://bogatyr.club/uploads/posts/2023-03/1679771753_bogatyr-club-p-fon-dlya-prezentatsii-bibliotekarya-instag-3.png');
+    background-size: cover; /* Адаптує розмір зображення відповідно до розміру екрану */
+    background-position: center; /* Центрує зображення на фоні */
+    background-repeat: no-repeat; /* Запобігає повторенню зображення */
 }
 
 h2 {

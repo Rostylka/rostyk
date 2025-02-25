@@ -30,10 +30,11 @@
             <td><label for="authors"> Authors: </label></td>
         </tr>
         <tr th:each="author:${book.getAuthors()}">
-            <td ><input type="text" th:value="${author.getName()} + ' ' +${author.getSurname()}"
-                        id="authors" disabled/>
+            <td >
             </td>
-            <td><a class="delete-link" th:href="@{/books/update/{id}/delete/author/{authorId}
+            <td><input type="text" th:value="${author.getName()} + ' ' +${author.getSurname()}"
+                       id="authors" disabled/>
+                <a class="delete-link" th:href="@{/books/update/{id}/delete/author/{authorId}
             (id = ${book.getId()}, authorId = ${book.getAuthors().indexOf(author)})}">Delete</a>
             </td>
         </tr>
