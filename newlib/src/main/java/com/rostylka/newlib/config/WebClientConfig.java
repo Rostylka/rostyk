@@ -11,9 +11,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
 
     @Bean
-    public WebClient webClient() {
+    public WebClient webClientGutendex() {
         return WebClient.builder()
                 .baseUrl("https://gutendex.com")
+                .build();
+    }
+
+    @Bean
+    public WebClient webClientOpenLibrary() {
+        return WebClient.builder()
+                .baseUrl("https://openlibrary.org")
                 .build();
     }
 }

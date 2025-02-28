@@ -1,7 +1,7 @@
 package com.rostylka.newlib.mappers;
 
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.webdto.BookWebDto;
+import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookWebDto;
 import com.rostylka.newlib.models.Book;
 
 import java.util.ArrayList;
@@ -62,29 +62,5 @@ public class BookMapper {
         return books;
     }
 
-    /**
-     * Method for transforming BookWed DTO to Book DTO
-     * @param bookWebDto - BookWeb DTO
-     * @return Book DTO
-     */
-    public static BookDto mapFromBookWebDtoToBookDto(BookWebDto bookWebDto) {
-        return new BookDto(0,
-                (bookWebDto.getTitle() != null)?bookWebDto.getTitle():null,
-                AuthorMapper.mapFromAuthorWebDtoToAuthorList(bookWebDto.getAuthors()),
-                (!bookWebDto.getSummaries().isEmpty())?bookWebDto.getSummaries().get(0):null,
-                (bookWebDto.getFormats().get("image/jpeg") != null)?bookWebDto.getFormats().get("image/jpeg"):null);
-    }
 
-    /**
-     * Method for transforming BookWeb DTO list into BookDto list
-     * @param dtoWebBooks list of Books
-     * @return list of Book DTOs
-     */
-    public static List<BookDto> mapFromBookWebDtoListToBookDtoList(List<BookWebDto> dtoWebBooks) {
-        List<BookDto> books = new ArrayList<>();
-        for (BookWebDto dtoWebBook : dtoWebBooks) {
-            books.add(BookMapper.mapFromBookWebDtoToBookDto(dtoWebBook));
-        }
-        return books;
-    }
 }

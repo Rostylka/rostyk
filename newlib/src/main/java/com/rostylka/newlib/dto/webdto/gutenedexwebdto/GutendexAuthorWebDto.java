@@ -1,4 +1,4 @@
-package com.rostylka.newlib.dto.webdto;
+package com.rostylka.newlib.dto.webdto.gutenedexwebdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorWebDto {
+public class GutendexAuthorWebDto {
 
     private String name;
     private String birth_year;

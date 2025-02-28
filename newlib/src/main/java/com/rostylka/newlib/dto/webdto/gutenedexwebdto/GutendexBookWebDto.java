@@ -1,4 +1,4 @@
-package com.rostylka.newlib.dto.webdto;
+package com.rostylka.newlib.dto.webdto.gutenedexwebdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +15,10 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookWebDto {
+public class GutendexBookWebDto {
 
     private String title;
-    private List<AuthorWebDto> authors;
+    private List<GutendexAuthorWebDto> authors;
     private List<String> summaries;
     private Map<String, String> formats;
 

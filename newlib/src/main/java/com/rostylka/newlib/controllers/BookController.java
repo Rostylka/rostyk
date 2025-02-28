@@ -2,7 +2,6 @@ package com.rostylka.newlib.controllers;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.webdto.BookWebDto;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Author;
@@ -10,6 +9,7 @@ import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookWebServiceImplementation;
+import com.rostylka.newlib.services.implementations.bookwebserviceimplementations.BookWebGutendexServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +27,7 @@ public class BookController {
     private UserServiceImplementation userServiceImplementation;
     private BookServiceImplementation bookServiceImplementation;
     private AuthorServiceImplementation authorServiceImplementation;
+    private BookWebGutendexServiceImplementation bookWebGutendexServiceImplementation;
     private BookWebServiceImplementation bookWebServiceImplementation;
     private BookDto bookDto;
 
@@ -64,8 +65,7 @@ public class BookController {
                              Model model) {
         bookDto.setAuthors(new ArrayList<>());
         bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
-        List<BookWebDto> books = bookWebServiceImplementation.getBooks(bookDto);
-        List<BookDto> dtoBooks = BookMapper.mapFromBookWebDtoListToBookDtoList(books);
+        List<BookDto> dtoBooks = bookWebServiceImplementation.getAllWebBooks(bookDto);
         if (!dtoBooks.isEmpty()) {
             for (BookDto book: dtoBooks){
                 List<Author> authors = book.getAuthors();
@@ -85,28 +85,6 @@ public class BookController {
         }
         return "redirect:/books";
     }
-
-  /*  *//**
-     * POST
-     * CREATE Book
-     *
-     * @param authorDto - Author DTO
-     * @param bookDto   - Book DTO
-     * @param model  - Model
-     * @return list Books
-     *//*
-    @PostMapping("/create")
-    public String createBook(@ModelAttribute("author") AuthorDto authorDto,
-                             @ModelAttribute("book") BookDto bookDto,
-                             Model model) {
-        authorDto = authorServiceImplementation.createAuthor(authorDto);
-        bookDto.setAuthors(new ArrayList<>());
-        bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
-        bookServiceImplementation.createBook(bookDto);
-        return "redirect:/books";
-    }*/
-
-
 
     /**
      * READ ALL books

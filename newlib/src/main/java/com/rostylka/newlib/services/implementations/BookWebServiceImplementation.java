@@ -1,41 +1,32 @@
 package com.rostylka.newlib.services.implementations;
 
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.webdto.BookResponseDto;
-import com.rostylka.newlib.dto.webdto.BookWebDto;
+import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookWebDto;
+import com.rostylka.newlib.mappers.bookwebmappers.GutendexBookWebMapper;
 import com.rostylka.newlib.services.BookWebService;
+import com.rostylka.newlib.services.implementations.bookwebserviceimplementations.BookWebGutendexServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
-/**
- * Class for getting Books from https://gutendex.com/ public API
- */
 @Service
 public class BookWebServiceImplementation implements BookWebService {
-    private WebClient webClient;
+    private BookWebGutendexServiceImplementation bookWebGutendexServiceImplementation;
 
     /**
-     * Method for getting info of the Book from API
-     * @param bookDto
-     * @return
+     * Method for getting Book DTOs from all APIs
+     * @param bookDto - Book DTO
+     * @return List of Book DTOs from all APIs
      */
     @Override
-    public List<BookWebDto> getBooks(BookDto bookDto) {
-        String uri = "/books/?search=" + bookDto.getTitle()
-                + " " + bookDto.getAuthors().get(0).getName()
-                + " " + bookDto.getAuthors().get(0).getSurname();
-        String data = webClient.get()
-                .uri(uri).retrieve().bodyToMono(String.class).block();
-        BookResponseDto bookResponseDto = webClient.get()
-                .uri(uri).retrieve().bodyToMono(BookResponseDto.class).block();
-        return bookResponseDto.getResults();
+    public List<BookDto> getAllWebBooks(BookDto bookDto) {
+        List<GutendexBookWebDto> books = bookWebGutendexServiceImplementation.getBooks(bookDto);
+        return GutendexBookWebMapper.mapFromBookWebGutendexDtoListToBookDtoList(books);
     }
 
     @Autowired
-    public void setWebClient(WebClient webClient) {
-        this.webClient = webClient;
+    public void setBookWebGutendexServiceImplementation(BookWebGutendexServiceImplementation bookWebGutendexServiceImplementation) {
+        this.bookWebGutendexServiceImplementation = bookWebGutendexServiceImplementation;
     }
 }

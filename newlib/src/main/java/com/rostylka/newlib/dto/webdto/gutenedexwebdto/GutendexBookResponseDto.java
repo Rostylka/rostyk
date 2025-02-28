@@ -1,4 +1,4 @@
-package com.rostylka.newlib.dto.webdto;
+package com.rostylka.newlib.dto.webdto.gutenedexwebdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +15,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookResponseDto {
+public class GutendexBookResponseDto {
      private String count;
      private String next;
      private String previous;
-     private List<BookWebDto> results;
+     private List<GutendexBookWebDto> results;
 }
