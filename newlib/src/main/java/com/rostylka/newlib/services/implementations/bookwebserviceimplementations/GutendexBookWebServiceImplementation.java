@@ -5,7 +5,6 @@ import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookResponseDto;
 import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookWebDto;
 import com.rostylka.newlib.mappers.bookwebmappers.GutendexBookWebMapper;
 import com.rostylka.newlib.services.BookWebService;
-import com.rostylka.newlib.services.implementations.BookWebServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,7 +21,7 @@ public class GutendexBookWebServiceImplementation implements BookWebService {
     /**
      * Method for getting all books from API
      * @param bookDto - Book DTO
-     * @return - Lst of Book DTOs from API
+     * @return - List of Book DTOs from API
      */
     @Override
     public List<BookDto> getAllWebBooks(BookDto bookDto) {
