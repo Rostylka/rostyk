@@ -5,6 +5,7 @@ import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookResponseDto;
 import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookWebDto;
 import com.rostylka.newlib.mappers.bookwebmappers.GutendexBookWebMapper;
 import com.rostylka.newlib.services.BookWebService;
+import com.rostylka.newlib.services.implementations.BookWebServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,7 +16,7 @@ import java.util.List;
  * Class for getting Books from https://gutendex.com/ public API
  */
 @Service
-public class BookWebGutendexServiceImplementation implements BookWebService {
+public class GutendexBookWebServiceImplementation extends BookWebServiceImplementation implements BookWebService {
     private WebClient webClientGutendex;
 
     /**

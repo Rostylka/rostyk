@@ -4,7 +4,7 @@ import com.rostylka.newlib.dto.BookDto;
 import com.rostylka.newlib.dto.webdto.gutenedexwebdto.GutendexBookWebDto;
 import com.rostylka.newlib.mappers.bookwebmappers.GutendexBookWebMapper;
 import com.rostylka.newlib.services.BookWebService;
-import com.rostylka.newlib.services.implementations.bookwebserviceimplementations.BookWebGutendexServiceImplementation;
+import com.rostylka.newlib.services.implementations.bookwebserviceimplementations.GutendexBookWebServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class BookWebServiceImplementation implements BookWebService {
-    private BookWebGutendexServiceImplementation bookWebGutendexServiceImplementation;
+    private GutendexBookWebServiceImplementation gutendexBookWebServiceImplementation;
 
     /**
      * Method for getting Book DTOs from all APIs
@@ -21,12 +21,12 @@ public class BookWebServiceImplementation implements BookWebService {
      */
     @Override
     public List<BookDto> getAllWebBooks(BookDto bookDto) {
-        List<GutendexBookWebDto> books = bookWebGutendexServiceImplementation.getBooks(bookDto);
+        List<GutendexBookWebDto> books = gutendexBookWebServiceImplementation.getBooks(bookDto);
         return GutendexBookWebMapper.mapFromBookWebGutendexDtoListToBookDtoList(books);
     }
 
     @Autowired
-    public void setBookWebGutendexServiceImplementation(BookWebGutendexServiceImplementation bookWebGutendexServiceImplementation) {
-        this.bookWebGutendexServiceImplementation = bookWebGutendexServiceImplementation;
+    public void setBookWebGutendexServiceImplementation(GutendexBookWebServiceImplementation gutendexBookWebServiceImplementation) {
+        this.gutendexBookWebServiceImplementation = gutendexBookWebServiceImplementation;
     }
 }
