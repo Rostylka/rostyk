@@ -16,7 +16,7 @@ import java.util.List;
  * Class for getting Books from https://gutendex.com/ public API
  */
 @Service
-public class GutendexBookWebServiceImplementation extends BookWebServiceImplementation implements BookWebService {
+public class GutendexBookWebServiceImplementation implements BookWebService {
     private WebClient webClientGutendex;
 
     /**

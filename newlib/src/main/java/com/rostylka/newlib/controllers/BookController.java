@@ -172,7 +172,7 @@ public class BookController {
     //TODO try to make POST
     /**
      * Delete Author from book by ID
-     * @param id - Book Id
+     * @param id - Book ID
      * @param authorId - Author ID
      * @return Updated Book
      */
