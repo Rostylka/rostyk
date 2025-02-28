@@ -9,7 +9,6 @@ import com.rostylka.newlib.models.Book;
 import com.rostylka.newlib.services.implementations.AuthorServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookServiceImplementation;
 import com.rostylka.newlib.services.implementations.BookWebServiceImplementation;
-import com.rostylka.newlib.services.implementations.bookwebserviceimplementations.GutendexBookWebServiceImplementation;
 import com.rostylka.newlib.services.implementations.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +26,6 @@ public class BookController {
     private UserServiceImplementation userServiceImplementation;
     private BookServiceImplementation bookServiceImplementation;
     private AuthorServiceImplementation authorServiceImplementation;
-    private GutendexBookWebServiceImplementation gutendexBookWebServiceImplementation;
     private BookWebServiceImplementation bookWebServiceImplementation;
     private BookDto bookDto;
 
@@ -77,7 +75,7 @@ public class BookController {
                 bookServiceImplementation.createBook(book);
             }
         }
-        else {                                   ;
+        else {
             authorDto = authorServiceImplementation.createAuthor(authorDto);
             bookDto.setAuthors(new ArrayList<>());
             bookDto = bookServiceImplementation.addAuthor(bookDto, authorDto);
