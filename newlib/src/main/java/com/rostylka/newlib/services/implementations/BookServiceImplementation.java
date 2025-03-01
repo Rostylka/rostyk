@@ -29,14 +29,16 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Constructor
+     *
      * @param bookRepository - Book Repository
      */
-    public BookServiceImplementation(BookRepository bookRepository){
+    public BookServiceImplementation(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     /**
      * Method for creation Book in DataBase
+     *
      * @param bookDto - Book DTO
      * @return Book() create new Book in DataBase
      */
@@ -52,6 +54,7 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for reading all Books from DataBase
+     *
      * @return List of BookDTO from DataBase
      */
     @Override
@@ -61,6 +64,7 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for reading Book by ID from DataBase
+     *
      * @param id ID of Book
      * @return Book by ID
      */
@@ -71,8 +75,8 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for Updating Book in DataBase
-     * @param bookDto
-     * update Book in DataBase
+     *
+     * @param bookDto update Book in DataBase
      */
     @Override
     public BookDto updateBook(BookDto bookDto) {
@@ -86,7 +90,8 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for adding author to book
-     * @param bookDto - bookDTO
+     *
+     * @param bookDto   - bookDTO
      * @param authorDto - authorDTO
      * @return Book DTO with added Author
      */
@@ -97,6 +102,7 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for Deleting Book from DataBase
+     *
      * @param bookDto - Book DTO
      */
     @Override
@@ -106,6 +112,7 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for finding book by title
+     *
      * @param title Book's title
      * @return List of Book DTOs by Title
      */
@@ -123,8 +130,7 @@ public class BookServiceImplementation implements BookService {
     }
 
     /**
-     *
-     * @param name Author's name
+     * @param name    Author's name
      * @param surname Author's surname
      * @return List of DTOs by Author
      */
@@ -150,6 +156,7 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for creating Pattern for searching book by title or by author
+     *
      * @param name - name fo pattern
      * @return pattern for sorting books, authors etc.
      */
@@ -159,14 +166,23 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for checking if Book is present in Database
+     *
      * @param bookDto - Book DTO
      * @return Book DTO if Book is present in Data Base and null if not
      */
     public BookDto checkIfBookPresent(BookDto bookDto) {
-        List<BookDto> books  = readAllBooks();
-        for (BookDto book: books) {
-            if (book.getTitle().equals(bookDto.getTitle()) && book.getAuthors().contains(bookDto.getAuthors().get(0))) {
-                return book;
+        List<BookDto> books = readAllBooks();
+        for (BookDto book : books) {
+            if (book.getTitle().equals(bookDto.getTitle())) {
+                if (bookDto.getAuthors().isEmpty()) {
+                    if (book.getAuthors().isEmpty()) {
+                        return book;
+                    }
+                } else {
+                    if (book.getAuthors().contains(bookDto.getAuthors().get(0))) {
+                        return book;
+                    }
+                }
             }
         }
         return null;
@@ -174,16 +190,18 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for getting Book by Authors and Title
+     *
      * @param authors - List of Authors
-     * @param title - title of the Book
+     * @param title   - title of the Book
      * @return Book DTO with these Authors and Title
      */
-    public BookDto getBookByAuthorsAndTitle(List <Author> authors, String title) {
+    public BookDto getBookByAuthorsAndTitle(List<Author> authors, String title) {
         return BookMapper.mapToBookDto(bookRepository.getBookByAuthorsAndTitle(authors, title));
     }
 
     /**
      * Method for finding Unregistered Books
+     *
      * @return List Book DTO of Unregistered Books
      */
     public List<BookDto> findUnregisteredBooks() {
@@ -195,14 +213,14 @@ public class BookServiceImplementation implements BookService {
 
     /**
      * Method for getting String availability of the Book
+     *
      * @param bookDto - Book DTO
      * @return "available" or "unavailable"
      */
     public String getAvailabilityOfBook(BookDto bookDto) {
         if (bookLogServiceImplementation.isBookAvailable(bookDto)) {
             return "available";
-        }
-        else return "unavailable";
+        } else return "unavailable";
     }
 
     @Autowired
