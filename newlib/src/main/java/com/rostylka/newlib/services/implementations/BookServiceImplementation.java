@@ -2,12 +2,10 @@ package com.rostylka.newlib.services.implementations;
 
 import com.rostylka.newlib.dto.AuthorDto;
 import com.rostylka.newlib.dto.BookDto;
-import com.rostylka.newlib.dto.BookLogDto;
 import com.rostylka.newlib.mappers.AuthorMapper;
 import com.rostylka.newlib.mappers.BookMapper;
 import com.rostylka.newlib.models.Author;
 import com.rostylka.newlib.models.Book;
-import com.rostylka.newlib.models.BookLog;
 import com.rostylka.newlib.repositories.BookRepository;
 import com.rostylka.newlib.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImplementation implements BookService {
