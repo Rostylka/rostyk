@@ -11,6 +11,7 @@ import com.rostylka.newlib.services.implementations.bookwebserviceimplementation
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,11 +26,14 @@ public class BookWebServiceImplementation implements BookWebService {
      */
     @Override
     public List<BookDto> getAllWebBooks(BookDto bookDto) {
-        //List<GutendexBookWebDto> gutendexBookWebDtos = gutendexBookWebServiceImplementation.getBooks(bookDto);
+        List<GutendexBookWebDto> gutendexBookWebDtos = gutendexBookWebServiceImplementation.getBooks(bookDto);
         List<OpenLibraryBookWebDto> openLibraryBookWebDtos = openLibraryBookWebServiceImplementation.getBooks(bookDto);
-        //List<BookDto> gutendexBooks = GutendexBookWebMapper.mapFromBookWebGutendexDtoListToBookDtoList(gutendexBookWebDtos);
+        List<BookDto> gutendexBooks = GutendexBookWebMapper.mapFromBookWebGutendexDtoListToBookDtoList(gutendexBookWebDtos);
         List<BookDto> openLibraryBooks = OpenLibraryBookWebMapper.mapFromOpenLibraryBookWebDtoListToBookDtoList(openLibraryBookWebDtos);
-        return openLibraryBooks;
+        List<BookDto> result =  new ArrayList<>();
+        result.addAll(gutendexBooks);
+        result.addAll(openLibraryBooks);
+        return result;
     }
 
     @Autowired
