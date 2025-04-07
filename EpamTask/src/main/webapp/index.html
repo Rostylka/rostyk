@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store Catalogue</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Online Store Catalogue</h1>
+    <div class="filter">
+        <label for="category">Filter by Category: </label>
+        <select id="category" onchange="filterProducts()">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="accessories">Accessories</option>
+        </select>
+    </div>
+</header>
+
+<section class="product-container">
+    <div class="product" data-category="electronics">
+        <img src="https://via.placeholder.com/200" alt="Smartphone">
+        <h3>Smartphone</h3>
+        <p>Price: $599</p>
+    </div>
+    <div class="product" data-category="clothing">
+        <img src="https://via.placeholder.com/200" alt="T-shirt">
+        <h3>T-shirt</h3>
+        <p>Price: $29</p>
+    </div>
+    <div class="product" data-category="electronics">
+        <img src="https://via.placeholder.com/200" alt="Laptop">
+        <h3>Laptop</h3>
+        <p>Price: $999</p>
+    </div>
+    <div class="product" data-category="accessories">
+        <img src="https://via.placeholder.com/200" alt="Headphones">
+        <h3>Headphones</h3>
+        <p>Price: $150</p>
+    </div>
+    <div class="product" data-category="clothing">
+        <img src="https://via.placeholder.com/200" alt="Jeans">
+        <h3>Jeans</h3>
+        <p>Price: $49</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Online Store</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
