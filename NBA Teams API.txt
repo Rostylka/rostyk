@@ -1,0 +1,385 @@
+NBA Teams API – Complete Model
+Below is a complete specification for an API to catalogue NBA teams, players, and games, following both functional and non-functional requirements, while applying the Richardson Maturity Model and addressing caching, pagination, authentication, and error handling.
+________________________________________
+Functional Requirements
+Entities
+1.	Team:
+o	Represents an NBA team.
+o	Fields:
+	id (int) — Unique identifier for the team.
+	name (string) — Name of the team.
+	city (string) — City where the team is based.
+	arena (string) — Home arena name.
+	abbreviation (string) — Abbreviation of the team (e.g., "LAL").
+	established (int) — Year the team was founded.
+	conference (string) — The conference (Eastern/Western).
+	division (string) — The division (e.g., "Atlantic").
+	logo_url (string) — URL for the team’s logo image.
+2.	Player:
+o	Represents an NBA player.
+o	Fields:
+	id (int) — Unique identifier for the player.
+	name (string) — Player's full name.
+	team_id (int) — The ID of the team the player belongs to.
+	position (string) — Position of the player (e.g., "Guard", "Forward").
+	height (string) — Height of the player (e.g., "6'7").
+	weight (int) — Weight of the player in pounds.
+	birthdate (string) — Birthdate of the player (in ISO format).
+	college (string) — College the player attended.
+	nationality (string) — Nationality of the player.
+3.	Game:
+o	Represents an NBA game.
+o	Fields:
+	id (int) — Unique identifier for the game.
+	home_team_id (int) — ID of the home team.
+	away_team_id (int) — ID of the away team.
+	date (string) — Date and time of the game (in ISO format).
+	location (string) — The location of the game (home arena or neutral).
+	score_home (int, nullable) — Score of the home team.
+	score_away (int, nullable) — Score of the away team.
+________________________________________
+Operations
+1.	Teams:
+o	GET /teams: Retrieve a list of all NBA teams, with optional filters.
+	Query Params: conference, division, page, per_page.
+	Response:
+	200 OK: List of teams in JSON format.
+	400 Bad Request: Invalid filter or pagination parameters.
+o	GET /teams/{id}: Retrieve a specific team by ID.
+	Response:
+	200 OK: Team details in JSON format.
+	404 Not Found: Team not found.
+o	POST /teams: Create a new NBA team.
+	Request Body: JSON object representing a team.
+	Response:
+	201 Created: Team successfully created.
+	400 Bad Request: Invalid data in the request body.
+o	PUT /teams/{id}: Update an existing team.
+	Request Body: JSON object with updated team details.
+	Response:
+	200 OK: Team successfully updated.
+	400 Bad Request: Invalid data in the request body.
+	404 Not Found: Team not found.
+o	DELETE /teams/{id}: Delete an NBA team.
+	Response:
+	200 OK: Team successfully deleted.
+	404 Not Found: Team not found.
+2.	Players:
+o	GET /players: Retrieve a list of all players, with optional filters.
+	Query Params: team_id, position, page, per_page.
+	Response:
+	200 OK: List of players in JSON format.
+	400 Bad Request: Invalid filter or pagination parameters.
+o	GET /players/{id}: Retrieve a specific player by ID.
+	Response:
+	200 OK: Player details in JSON format.
+	404 Not Found: Player not found.
+o	POST /players: Create a new player.
+	Request Body: JSON object representing a player.
+	Response:
+	201 Created: Player successfully created.
+	400 Bad Request: Invalid data in the request body.
+o	PUT /players/{id}: Update an existing player's information.
+	Request Body: JSON object with updated player details.
+	Response:
+	200 OK: Player successfully updated.
+	400 Bad Request: Invalid data in the request body.
+	404 Not Found: Player not found.
+o	DELETE /players/{id}: Delete a player.
+	Response:
+	200 OK: Player successfully deleted.
+	404 Not Found: Player not found.
+3.	Games:
+o	GET /games: Retrieve a list of scheduled games, with optional filters.
+	Query Params: team_id, date_after, page, per_page.
+	Response:
+	200 OK: List of games in JSON format.
+	400 Bad Request: Invalid filter or pagination parameters.
+o	GET /games/{id}: Retrieve details of a specific game by ID.
+	Response:
+	200 OK: Game details in JSON format.
+	404 Not Found: Game not found.
+o	POST /games: Schedule a new game between two teams.
+	Request Body: JSON object representing the game details.
+	Response:
+	201 Created: Game successfully scheduled.
+	400 Bad Request: Invalid data in the request body.
+o	PUT /games/{id}: Update an existing game (e.g., update scores after a game).
+	Request Body: JSON object with updated game details.
+	Response:
+	200 OK: Game successfully updated.
+	400 Bad Request: Invalid data in the request body.
+	404 Not Found: Game not found.
+o	DELETE /games/{id}: Delete a game (e.g., if canceled).
+	Response:
+	200 OK: Game successfully deleted.
+	404 Not Found: Game not found.
+________________________________________
+Non-Functional Requirements
+Performance & Scalability
+•	Caching: Use HTTP caching (e.g., ETag, Last-Modified headers) for frequently accessed endpoints (e.g., teams and players list).
+•	Pagination: All endpoints that return lists of items (teams, players, games) should implement pagination with page and per_page query parameters to handle large datasets efficiently.
+•	Rate Limiting: Limit the number of requests to the API per minute to avoid abuse.
+Security
+•	Authentication: Use Bearer Tokens (OAuth 2.0) for authentication.
+o	Authorization Header: Authorization: Bearer {token}
+o	API endpoints must check the validity of the token before proceeding with requests.
+o	Admin and user roles should be assigned to control access to certain endpoints (e.g., only admins can create or delete teams).
+•	Input Validation: Validate input data (e.g., correct player height format, valid team name) to prevent invalid data from being processed.
+Reliability
+•	Error Handling: All API endpoints should return standard HTTP status codes to indicate success or failure:
+o	200 OK: The request was successful.
+o	201 Created: The resource was successfully created.
+o	400 Bad Request: The request was malformed or missing required data.
+o	404 Not Found: The requested resource (team/player/game) does not exist.
+o	500 Internal Server Error: A server error occurred during processing.
+o	401 Unauthorized: Missing or invalid authentication token.
+o	403 Forbidden: The authenticated user does not have permission for the requested operation.
+•	Logging: All critical operations (e.g., user authentication, team creation) should be logged to help with debugging and troubleshooting.
+________________________________________
+Richardson Maturity Model
+This API adopts Level 3 of the Richardson Maturity Model:
+•	HTTP Methods: The API uses proper HTTP methods for each operation: GET, POST, PUT, and DELETE to reflect the standard RESTful actions for retrieving, creating, updating, and deleting resources.
+•	Stateless: The API is stateless; each request should contain all the necessary information (including authentication) to process the request. The server does not maintain any state between requests.
+•	Hypermedia as the engine of application state (HATEOAS): Links to related resources (e.g., team and player links within responses) should be included to guide the client on possible next actions.
+________________________________________
+Caching
+•	Teams and Players List: Cache the results for GET /teams and GET /players for up to 1 minute.
+•	Game Schedules: Cache game schedules (GET /games) for up to 30 minutes.
+•	Use appropriate cache control headers (Cache-Control: public, max-age=60) for endpoints that can be cached.
+________________________________________
+Pagination
+All endpoints returning lists of items (teams, players, and games) should be paginated. For example:
+•	GET /teams: Add page and per_page query parameters.
+o	Example: GET /teams?page=1&per_page=20
+•	GET /players: Add page and per_page query parameters.
+o	Example: GET /players?team_id=1&page=1&per_page=20
+•	GET /games: Add page and per_page query parameters.
+o	Example: GET /games?page=1&per_page=20
+________________________________________
+Authentication
+•	Use OAuth 2.0 for user authentication. The Bearer Token should be passed in the Authorization header for each API request.
+•	Example:
+o	Request: GET /teams
+o	Headers: Authorization: Bearer {token}
+________________________________________
+API Responses for NBA Teams API
+In a well-structured REST API, responses should be clear, consistent, and include all relevant information that the client needs to process the result. Below is a detailed description of the possible responses for each API operation in the NBA Teams API.
+________________________________________
+Response Format
+All API responses will be returned in JSON format, and each response will include a status code, a message (if applicable), and the relevant data. The structure of the response can be broken down as follows:
+Standard Response Structure:
+•	Success Response:
+•	{
+•	  "status": "success",
+•	  "data": { /* relevant data */ }
+•	}
+•	Error Response:
+•	{
+•	  "status": "error",
+•	  "message": "Description of the error",
+•	  "code": HTTP_STATUS_CODE
+•	}
+•	Pagination Response (For endpoints returning lists):
+•	{
+•	  "status": "success",
+•	  "data": [ /* array of items */ ],
+•	  "pagination": {
+•	    "total": 100,
+•	    "page": 1,
+•	    "per_page": 10,
+•	    "total_pages": 10
+•	  }
+•	}
+________________________________________
+Success Responses
+1. Successful Retrieval of Data
+•	GET /teams (Get list of teams):
+o	200 OK: When a list of teams is successfully fetched.
+o	Example Response:
+o	{
+o	  "status": "success",
+o	  "data": [
+o	    {
+o	      "id": 1,
+o	      "name": "Los Angeles Lakers",
+o	      "city": "Los Angeles",
+o	      "arena": "Staples Center",
+o	      "abbreviation": "LAL",
+o	      "established": 1947,
+o	      "conference": "Western",
+o	      "division": "Pacific",
+o	      "logo_url": "https://example.com/logo.png"
+o	    },
+o	    {
+o	      "id": 2,
+o	      "name": "Golden State Warriors",
+o	      "city": "San Francisco",
+o	      "arena": "Chase Center",
+o	      "abbreviation": "GSW",
+o	      "established": 1946,
+o	      "conference": "Western",
+o	      "division": "Pacific",
+o	      "logo_url": "https://example.com/logo.png"
+o	    }
+o	  ],
+o	  "pagination": {
+o	    "total": 30,
+o	    "page": 1,
+o	    "per_page": 10,
+o	    "total_pages": 3
+o	  }
+o	}
+2. Successful Data Retrieval by ID
+•	GET /teams/{id} (Get specific team by ID):
+o	200 OK: When the specific team is found and returned.
+o	Example Response:
+o	{
+o	  "status": "success",
+o	  "data": {
+o	    "id": 1,
+o	    "name": "Los Angeles Lakers",
+o	    "city": "Los Angeles",
+o	    "arena": "Staples Center",
+o	    "abbreviation": "LAL",
+o	    "established": 1947,
+o	    "conference": "Western",
+o	    "division": "Pacific",
+o	    "logo_url": "https://example.com/logo.png"
+o	  }
+o	}
+3. Successful Creation of a New Resource
+•	POST /teams (Create a new team):
+o	201 Created: When a new team is successfully created.
+o	Example Response:
+o	{
+o	  "status": "success",
+o	  "data": {
+o	    "id": 31,
+o	    "name": "New York Nets",
+o	    "city": "New York",
+o	    "arena": "Barclays Center",
+o	    "abbreviation": "NYN",
+o	    "established": 1967,
+o	    "conference": "Eastern",
+o	    "division": "Atlantic",
+o	    "logo_url": "https://example.com/logo.png"
+o	  }
+o	}
+4. Successful Update of a Resource
+•	PUT /teams/{id} (Update an existing team):
+o	200 OK: When the team is successfully updated.
+o	Example Response:
+o	{
+o	  "status": "success",
+o	  "data": {
+o	    "id": 1,
+o	    "name": "Los Angeles Lakers",
+o	    "city": "Los Angeles",
+o	    "arena": "Crypto.com Arena",
+o	    "abbreviation": "LAL",
+o	    "established": 1947,
+o	    "conference": "Western",
+o	    "division": "Pacific",
+o	    "logo_url": "https://example.com/logo.png"
+o	  }
+o	}
+5. Successful Deletion of a Resource
+•	DELETE /teams/{id} (Delete a specific team):
+o	200 OK: When the team is successfully deleted.
+o	Example Response:
+o	{
+o	  "status": "success",
+o	  "message": "Team successfully deleted."
+o	}
+________________________________________
+Error Responses
+1. Invalid Request Data
+•	POST /teams (Create a new team with missing required fields):
+o	400 Bad Request: When the data is missing required fields or is in an incorrect format.
+o	Example Response:
+o	{
+o	  "status": "error",
+o	  "message": "Missing required field: 'city'.",
+o	  "code": 400
+o	}
+2. Unauthorized Access
+•	GET /teams (Accessing resource without authentication):
+o	401 Unauthorized: When the request is made without a valid authentication token.
+o	Example Response:
+o	{
+o	  "status": "error",
+o	  "message": "Authentication token is missing or invalid.",
+o	  "code": 401
+o	}
+3. Forbidden Access
+•	DELETE /teams/{id} (Attempt to delete a resource without permissions):
+o	403 Forbidden: When a user without the proper permissions tries to access a restricted operation.
+o	Example Response:
+o	{
+o	  "status": "error",
+o	  "message": "You do not have permission to delete this team.",
+o	  "code": 403
+o	}
+4. Resource Not Found
+•	GET /teams/{id} (Get a team that does not exist):
+o	404 Not Found: When the requested resource does not exist.
+o	Example Response:
+o	{
+o	  "status": "error",
+o	  "message": "Team not found.",
+o	  "code": 404
+o	}
+5. Internal Server Error
+•	POST /games (Error during game scheduling):
+o	500 Internal Server Error: When an unexpected error occurs while processing the request.
+o	Example Response:
+o	{
+o	  "status": "error",
+o	  "message": "An unexpected error occurred while scheduling the game.",
+o	  "code": 500
+o	}
+Caching and Pagination in Responses
+Pagination Response Example
+For responses that involve lists of data (such as teams, players, or games), the API will paginate the results to improve performance and limit the data returned in a single request.
+•	Example Response with Pagination:
+•	{
+•	  "status": "success",
+•	  "data": [
+•	    {
+•	      "id": 1,
+•	      "name": "Los Angeles Lakers",
+•	      "city": "Los Angeles",
+•	      "arena": "Staples Center",
+•	      "abbreviation": "LAL",
+•	      "established": 1947,
+•	      "conference": "Western",
+•	      "division": "Pacific",
+•	      "logo_url": "https://example.com/logo.png"
+•	    },
+•	    {
+•	      "id": 2,
+•	      "name": "Golden State Warriors",
+•	      "city": "San Francisco",
+•	      "arena": "Chase Center",
+•	      "abbreviation": "GSW",
+•	      "established": 1946,
+•	      "conference": "Western",
+•	      "division": "Pacific",
+•	      "logo_url": "https://example.com/logo.png"
+•	    }
+•	  ],
+•	  "pagination": {
+•	    "total": 30,
+•	    "page": 1,
+•	    "per_page": 10,
+•	    "total_pages": 3
+•	  }
+•	}
+Caching
+•	GET /teams and similar endpoints should support caching for repeated requests. For example:
+o	Cache headers like Cache-Control: public, max-age=60 will ensure that the results are cached for 60 seconds.
+o	If the data is unchanged (e.g., the list of teams or players), the client can use the cached version to avoid unnecessary requests.
+________________________________________
+By providing these standardized and consistent responses, the NBA Teams API ensures a user-friendly experience for developers consuming the API, while also improving performance and ensuring proper error handling.
+
